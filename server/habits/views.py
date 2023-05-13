@@ -1,6 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-# Create your views here.
+from rest_framework import generics
+from .models import Habit
+from .serializers import HabitSerializer
 
-def index(request):
-    return HttpResponse("Hello world. I'm learning Django")
+class AddNewHabit(generics.CreateAPIView):
+    queryset = Habit.objects.all()
+    serializer_class = HabitSerializer
