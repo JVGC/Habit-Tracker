@@ -7,5 +7,5 @@ urlpatterns = [
     path("add", views.AddNewHabit.as_view(), name="AddNewHabit"),
     path("", views.ListHabits.as_view(), name="ListHabits"),
     path("delete/<int:pk>", views.UpdateHabit.as_view(), name="UpdateHabit"),
-    path("delete/<int:pk>", views.DeleteHabit.as_view(), name="DeleteHabit")
+    path("update/<int:pk>", views.DeleteHabit.as_view(), name="DeleteHabit")
 ]
