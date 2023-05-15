@@ -48,7 +48,7 @@ class CheckHabit(views.APIView):
       dayHabit: DayHabit
       try:
         dayHabit = DayHabit.objects.get(habit=habit, day=day)
-        dayHabit = DayHabit(id=dayHabit.pk, habit=habit, day=day, completed=True).save(force_update=True)
+        dayHabit = DayHabit(id=dayHabit.pk, habit=habit, day=day, completed=not dayHabit.completed).save(force_update=True)
       except ObjectDoesNotExist:
         dayHabit = DayHabit(habit=habit, day=day, completed=True).save()
 
