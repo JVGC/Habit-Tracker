@@ -7,7 +7,8 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('habits', '0002_day'),
+        ('days', '0002_day'),
+        ('habits','0001_create_model_habit')
     ]
 
     operations = [
@@ -15,14 +16,14 @@ class Migration(migrations.Migration):
             name='DayHabit',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('checked', models.BooleanField(default=False)),
-                ('day', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='habits.day')),
+                ('completed', models.BooleanField(default=False)),
+                ('day', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='days.day')),
                 ('habit', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='habits.habit')),
             ],
         ),
         migrations.AddField(
             model_name='day',
             name='habits',
-            field=models.ManyToManyField(through='habits.DayHabit', to='habits.habit'),
+            field=models.ManyToManyField(through='days.DayHabit', to='habits.habit'),
         ),
     ]

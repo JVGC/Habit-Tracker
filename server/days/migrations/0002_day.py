@@ -5,10 +5,6 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('habits', '0001_create_model_habit'),
-    ]
-
     operations = [
         migrations.CreateModel(
             name='Day',
