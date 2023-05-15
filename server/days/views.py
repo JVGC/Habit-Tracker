@@ -19,3 +19,8 @@ class AddNewDay(generics.CreateAPIView):
 
         return super().create(request, *args, **kwargs)
 
+
+class ListDays(generics.ListAPIView):
+  queryset = Day.objects.all()
+  serializer_class = DaySerializer
+
