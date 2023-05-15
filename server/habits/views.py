@@ -9,3 +9,11 @@ class AddNewHabit(generics.CreateAPIView):
 class ListHabits(generics.ListAPIView):
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
+
+class UpdateHabit(generics.UpdateAPIView):
+    queryset = Habit.objects.all()
+    serializer_class = HabitSerializer
+
+class DeleteHabit(generics.DestroyAPIView):
+    queryset = Habit.objects.all()
+    serializer_class = HabitSerializer
