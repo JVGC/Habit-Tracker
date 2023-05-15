@@ -4,5 +4,5 @@ from .models import Day
 class DaySerializer(serializers.ModelSerializer):
 
   class Meta:
-      model = Day
-      fields = ('id','date')
+    model = Day
+    fields = ('id','date')
