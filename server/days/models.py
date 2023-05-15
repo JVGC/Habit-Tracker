@@ -22,5 +22,8 @@ class DayHabit(models.Model):
   habit = models.ForeignKey(Habit, on_delete=models.CASCADE)
   day = models.ForeignKey(Day, on_delete=models.CASCADE)
 
+  class Meta:
+   unique_together = ['habit', 'day']
+
   def __str__(self) -> str:
-    return self.day.date.isoformat()
+    return f"{self.day.date.isoformat()} - {self.habit.name}"
