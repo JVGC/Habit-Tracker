@@ -5,4 +5,4 @@ class DaySerializer(serializers.ModelSerializer):
 
   class Meta:
       model = Day
-      fields = ('pk','date')
+      fields = ('id','date')

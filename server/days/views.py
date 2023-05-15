@@ -5,6 +5,7 @@ from .models import Day
 class AddNewDay(generics.CreateAPIView):
     queryset = Day.objects.all()
     serializer_class = DaySerializer
+    lookup_field= "id"
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
