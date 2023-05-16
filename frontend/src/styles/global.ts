@@ -1,7 +1,30 @@
-import { styled } from "styled-components";
+import { styled, createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+      "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+
+
+  }
+
+  html,
+  body {
+    background-color: #09090A;
+    color: white
+  }
+
+`
 
 export const Container = styled.div`
-  background-color: ${props => props.theme.background};
   width: 100vw;
   height: 100vh;
   display: flex;
