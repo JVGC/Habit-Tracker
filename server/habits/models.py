@@ -13,3 +13,8 @@ class Habit(models.Model):
 
   class Meta:
     db_table = "habits" # Change Table Name
+
+  @staticmethod
+  def getHabitsByDate(date):
+    print(date)
+    return Habit.objects.filter(start_at__lte = date).order_by('start_at')
