@@ -7,6 +7,8 @@ from habits.models import Habit
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count, Q
 
+from datetime import datetime
+
 class AddNewDay(generics.CreateAPIView):
     queryset = Day.objects.all()
     serializer_class = DaySerializer
@@ -22,9 +24,6 @@ class AddNewDay(generics.CreateAPIView):
           })
         except ObjectDoesNotExist:
           return super().create(request, *args, **kwargs)
-
-
-
 class ListDays(views.APIView):
 
   def get(self, _: Request) -> Response:
@@ -47,6 +46,11 @@ class CheckHabit(views.APIView):
 
       daySerializer = DaySerializer(data={"date": request.data['date']})
       daySerializer.is_valid(raise_exception=True)
+
+      if datetime.strptime(request.data['date'], '%Y-%m-%d').date() < habit.start_at:
+        return Response(status=400, data={
+           "date": "This habit didn't start yet"
+        })
 
       try:
         day = Day.objects.get(date=request.data['date'])
