@@ -1,8 +1,11 @@
-from rest_framework import generics, response, views, request
+from rest_framework import generics, views
+from rest_framework.response import Response
+from rest_framework.request import Request
 from .serializers import DaySerializer
 from .models import Day, DayHabit
 from habits.models import Habit
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Count, Q
 
 class AddNewDay(generics.CreateAPIView):
     queryset = Day.objects.all()
@@ -14,25 +17,31 @@ class AddNewDay(generics.CreateAPIView):
         serializer.is_valid(raise_exception=True)
         try:
           Day.objects.get(date=request.data['date'])
-        except ObjectDoesNotExist:
-          return response.Response(status=400, data={
+          return Response(status=400, data={
              "date": "This date already has a correspondent Day Object"
           })
+        except ObjectDoesNotExist:
+          return super().create(request, *args, **kwargs)
 
-        return super().create(request, *args, **kwargs)
 
 
-class ListDays(generics.ListAPIView):
-  queryset = Day.objects.all()
-  serializer_class = DaySerializer
+class ListDays(views.APIView):
+
+  def get(self, _: Request) -> Response:
+    days = Day.objects.all().annotate(completed=Count('dayhabit', filter=Q(dayhabit__completed = True)))
+
+    day_serializer = DaySerializer(days, many=True)
+    for day in day_serializer.data:
+      day['total'] = len(Habit.getHabitsByDate(day['date']))
+    return Response(status=200, data=day_serializer.data)
 
 class CheckHabit(views.APIView):
 
-  def put(self, request: request.Request):
+  def put(self, request: Request) -> Response:
       try:
         habit = Habit.objects.get(id=request.data['habit'])
       except ObjectDoesNotExist:
-        return response.Response(status=404, data={
+        return Response(status=404, data={
            "habit": "Habit does not exist"
         })
 
@@ -52,4 +61,4 @@ class CheckHabit(views.APIView):
       except ObjectDoesNotExist:
         dayHabit = DayHabit(habit=habit, day=day, completed=True).save()
 
-      return response.Response(data=dayHabit, status=200)
+      return Response(data=dayHabit, status=200)
