@@ -1,10 +1,13 @@
-function App() {
+import { Container, Home } from "./styles/global"
+import { Header } from "./components/Header/Header"
+
+export function App() {
 
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
+    <Container>
+      <Home>
+        <Header />
+      </Home>
+    </Container>
   )
 }
-
-export default App
