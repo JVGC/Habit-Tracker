@@ -5,6 +5,7 @@ import { Checkbox } from "../Checkbox/Checkbox";
 import { PopoverContent, PopoverArrow, SelectedDay, ProgressIndicator, SelectedDate, ProgressRoot } from "./styles";
 
 import { Habit } from "../../interfaces/models";
+import { DayService } from "../../services/DayService";
 
 interface Props {
   date: Date;
@@ -32,6 +33,10 @@ export function HabitsList({total, completed, date}: Props){
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const onCheckChange = async (habitId: number) => {
+    await DayService.checkHabit({habit: String(habitId), date: dayjs(date).format('YYYY-MM-DD')})
+  }
+
   return (
     <PopoverContent>
         <SelectedDay>{dayjs(date).format('dddd')}</SelectedDay>
@@ -43,7 +48,7 @@ export function HabitsList({total, completed, date}: Props){
         </ProgressRoot>
 
         {habits && habits.map(habit => {
-          return <Checkbox key={habit.id} text={habit.name} />
+          return <Checkbox key={habit.id} text={habit.name} completed={habit.completed || false} onCheckChange={() => onCheckChange(habit.id)}/>
         })}
 
         <PopoverArrow height={8} width={16}/>

@@ -6,3 +6,9 @@ export interface CreateNewHabitRequest {
 export interface ListHabitsRequest {
   date?: string
 }
+
+export interface CheckHabitRequest {
+  habit: string;
+  date: string;
+
+}

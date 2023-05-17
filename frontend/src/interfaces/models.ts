@@ -1,7 +1,8 @@
 export interface Habit {
   id: number;
   name: string;
-  start_at: string
+  start_at: string;
+  completed?: boolean;
 }
 
 export interface Day{
