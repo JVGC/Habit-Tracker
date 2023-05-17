@@ -1,7 +1,7 @@
 import { styled } from 'styled-components'
 import { Plus } from 'phosphor-react'
 
-import { Trigger, Overlay, Content, Close, Title} from '@radix-ui/react-dialog'
+import * as Dialog from '@radix-ui/react-dialog'
 
 export const Container = styled.div`
   width: 100%;
@@ -14,7 +14,7 @@ export const Container = styled.div`
 
 `
 
-export const DialogTrigger = styled(Trigger)`
+export const DialogTrigger = styled(Dialog.Trigger)`
 
   display: flex;
   align-items: center;
@@ -38,7 +38,7 @@ export const PlusIcon = styled(Plus)`
   color: #8B5CF6;
 `
 
-export const DialogOverlay = styled(Overlay)`
+export const DialogOverlay = styled(Dialog.Overlay)`
   width: 100vw;
   height: 100vh;
   background-color: black;
@@ -48,7 +48,7 @@ export const DialogOverlay = styled(Overlay)`
 
 `
 
-export const DialogContent = styled(Content)`
+export const DialogContent = styled(Dialog.Content)`
   position: absolute;
   padding: 2.5rem;
   background-color: #18181B;
@@ -61,7 +61,7 @@ export const DialogContent = styled(Content)`
   transform: translateX(-50%) translateY(-50%);
 `
 
-export const DialogClose = styled(Close)`
+export const DialogClose = styled(Dialog.Close)`
   position: absolute;
   right: 1.5rem;
   top: 1.5rem;
@@ -75,7 +75,7 @@ export const DialogClose = styled(Close)`
   }
 `
 
-export const DialogTitle = styled(Title)`
+export const DialogTitle = styled(Dialog.Title)`
   color: white;
   font-size: 1.875rem;
   line-height: 1.25;
