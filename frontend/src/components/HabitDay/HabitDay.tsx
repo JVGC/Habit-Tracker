@@ -20,7 +20,6 @@ export function HabitDay({date, completedStartValue =0, totalInitial=0}: Props){
   const completedPercentage = total> 0 ? Math.round((completed/total) * 100) : 0
 
   const onCheckHabit = (newCompletedValue: number, habitsLength: number) => {
-    console.log(newCompletedValue)
     setCompleted(newCompletedValue)
     setTotal(habitsLength)
   }
