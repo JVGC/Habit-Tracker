@@ -19,7 +19,7 @@ export function SummaryTable(){
       </Week>
       <Heatmap>
         {summaryDates.map((date, index) => (
-          <HabitDay date = {date}total={5} completed={0} key={index}/>
+          <HabitDay date={date} key={index}/>
         ))}
         {amountOfDaysToFill > 0 && Array.from({length: amountOfDaysToFill}).map((_, index) => (
           <DayToFill key={index} />
