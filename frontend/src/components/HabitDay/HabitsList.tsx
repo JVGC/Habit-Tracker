@@ -11,14 +11,17 @@ interface Props {
   date: Date;
   completed: number;
   total: number;
+  onCheckHabit: (newCompletedValue: number, habitsLength: number) => void
 }
 
 
-export function HabitsList({total, completed, date}: Props){
+export function HabitsList({total, completed, date, onCheckHabit}: Props){
 
   const completedPercentage = total > 0 ? Math.round((completed/total) * 100) : 0
 
   const [habits, setHabits] = useState<Habit[]>([])
+  const [completedHabits, setCompletedHabits] = useState<number[]>([])
+
 
   useEffect(() => {
     async function GetDayHabits(){
@@ -26,15 +29,27 @@ export function HabitsList({total, completed, date}: Props){
         date: dayjs(date).format('YYYY-MM-DD')
       })
       setHabits(response)
+      const completedHabitInitial = response.filter(habit => habit.completed === true).map(habit => habit.id)
+      setCompletedHabits(completedHabitInitial)
     }
-
     GetDayHabits()
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const onCheckChange = async (habitId: number) => {
     await DayService.checkHabit({habit: String(habitId), date: dayjs(date).format('YYYY-MM-DD')})
+
+    const isHabitAlreadyCompleted = completedHabits.includes(habitId)
+
+    let newCompletedHabits: number[] = []
+
+    if(isHabitAlreadyCompleted){
+      newCompletedHabits = completedHabits.filter(id => id !== habitId)
+    }else{
+      newCompletedHabits = [...completedHabits, habitId]
+    }
+    setCompletedHabits(newCompletedHabits)
+    onCheckHabit(newCompletedHabits.length, habits.length)
   }
 
   return (
@@ -48,7 +63,12 @@ export function HabitsList({total, completed, date}: Props){
         </ProgressRoot>
 
         {habits && habits.map(habit => {
-          return <Checkbox key={habit.id} text={habit.name} completed={habit.completed || false} onCheckChange={() => onCheckChange(habit.id)}/>
+          return <Checkbox
+                  key={habit.id}
+                  text={habit.name}
+                  completed={habit.completed || false}
+                  onCheckChange={() => onCheckChange(habit.id)}
+                />
         })}
 
         <PopoverArrow height={8} width={16}/>

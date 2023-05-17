@@ -3,17 +3,27 @@ import * as Popover from '@radix-ui/react-popover'
 import { PopoverTrigger } from "./styles";
 import clsx from 'clsx';
 import { HabitsList } from './HabitsList';
+import { useState } from 'react';
 
 interface Props {
   date: Date;
   completedStartValue?: number;
-  total?: number;
+  totalInitial?: number;
 }
 
 
-export function HabitDay({date, completedStartValue=0, total=0}: Props){
+export function HabitDay({date, completedStartValue =0, totalInitial=0}: Props){
 
-  const completedPercentage = total > 0 ? Math.round((completedStartValue/total) * 100) : 0
+  const [completed, setCompleted] = useState(completedStartValue)
+  const [total, setTotal] = useState(totalInitial)
+
+  const completedPercentage = total> 0 ? Math.round((completed/total) * 100) : 0
+
+  const onCheckHabit = (newCompletedValue: number, habitsLength: number) => {
+    console.log(newCompletedValue)
+    setCompleted(newCompletedValue)
+    setTotal(habitsLength)
+  }
 
   return (
     <Popover.Root>
@@ -30,7 +40,8 @@ export function HabitDay({date, completedStartValue=0, total=0}: Props){
         <HabitsList
           date={date}
           total={total}
-          completed={completedStartValue}
+          completed={completed}
+          onCheckHabit={onCheckHabit}
         />
       </Popover.Portal>
     </Popover.Root>
