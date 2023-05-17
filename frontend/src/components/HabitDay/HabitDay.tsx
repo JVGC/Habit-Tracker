@@ -6,14 +6,14 @@ import { HabitsList } from './HabitsList';
 
 interface Props {
   date: Date;
-  completed?: number;
+  completedStartValue?: number;
   total?: number;
 }
 
 
-export function HabitDay({date, completed=0, total=0}: Props){
+export function HabitDay({date, completedStartValue=0, total=0}: Props){
 
-  const completedPercentage = total > 0 ? Math.round((completed/total) * 100) : 0
+  const completedPercentage = total > 0 ? Math.round((completedStartValue/total) * 100) : 0
 
   return (
     <Popover.Root>
@@ -30,7 +30,7 @@ export function HabitDay({date, completed=0, total=0}: Props){
         <HabitsList
           date={date}
           total={total}
-          completed={completed}
+          completed={completedStartValue}
         />
       </Popover.Portal>
     </Popover.Root>
