@@ -5,7 +5,7 @@ import { Container, Week, WeekDayName, Heatmap, DayToFill } from "./styles";
 const WEEKDAYS =['D','S', 'T', 'Q', 'Q', 'S', 'S']
 
 const summaryDates = generateDatesFromRange()
-const amountOfDaysToFill = summaryDates.length%7 + 1
+const amountOfDaysToFill = 7- (summaryDates.length%7)
 
 export function SummaryTable(){
   return(
