@@ -27,7 +27,7 @@ class AddNewDay(generics.CreateAPIView):
 class ListDays(views.APIView):
 
   def get(self, _: Request) -> Response:
-    days = Day.objects.all().annotate(completed=Count('dayhabit', filter=Q(dayhabit__completed = True)))
+    days = Day.objects.all().annotate(completed=Count('dayhabit', filter=Q(dayhabit__completed = True))).order_by('date')
 
     day_serializer = DaySerializer(days, many=True)
     for day in day_serializer.data:
