@@ -1,8 +1,6 @@
 import { HabitDay } from "../HabitDay/HabitDay";
-import { generateDatesFromRange } from "../../utils/date";
+import { WEEKDAYS, generateDatesFromRange } from "../../utils/date";
 import { Container, Week, WeekDayName, Heatmap, DayToFill } from "./styles";
-
-const WEEKDAYS =['D','S', 'T', 'Q', 'Q', 'S', 'S']
 
 const summaryDates = generateDatesFromRange()
 const amountOfDaysToFill = 7- (summaryDates.length%7)
@@ -14,14 +12,14 @@ export function SummaryTable(){
         {
           WEEKDAYS.map((day, index) =>(
             <WeekDayName key={index}>
-              {day}
+              {day[0]}
             </WeekDayName>
           ))
         }
       </Week>
       <Heatmap>
         {summaryDates.map((date, index) => (
-          <HabitDay key={index}/>
+          <HabitDay date = {date}total={5} completed={0} key={index}/>
         ))}
         {amountOfDaysToFill > 0 && Array.from({length: amountOfDaysToFill}).map((_, index) => (
           <DayToFill key={index} />
