@@ -20,8 +20,7 @@ export const DialogTrigger = styled(Dialog.Trigger)`
   align-items: center;
   gap: 0.75rem;
 
-  border-width: 2px;
-  border-color: #8B5CF6;
+  border: 2px solid #8B5CF6;
   background-color: ${props => props.theme.background};
   font-weight: 600;
   border-radius: 0.5rem;
@@ -103,6 +102,7 @@ export const TitleInput = styled.input`
   border-radius: 0.5rem;
   margin-top: 0.75rem;
   background-color: #27272A;
+  border: none;
 
   color: white;
   &::placeholder{
