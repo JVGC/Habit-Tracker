@@ -1,9 +1,10 @@
 import { api } from "../api/axios"
 import { CreateNewHabitRequest, ListHabitsRequest } from "../interfaces/api"
+import { Habit } from "../interfaces/models"
 
 export class HabitService {
 
-  static async createNewHabit({ title, startAt }: CreateNewHabitRequest){
+  static async createNewHabit({ title, startAt }: CreateNewHabitRequest): Promise<Habit>{
     const response = await api.post('/habits/add', {
       name: title,
       start_at: startAt
@@ -12,7 +13,7 @@ export class HabitService {
 
   }
 
-  static async listHabits({date}: ListHabitsRequest){
+  static async listHabits({date}: ListHabitsRequest): Promise<Habit[]>{
     const response = await api.get('/habits', {
       params:{
         date
