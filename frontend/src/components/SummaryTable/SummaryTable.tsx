@@ -32,7 +32,7 @@ export function SummaryTable(){
         }
       </Week>
       <Heatmap>
-        {days && days.length && summaryDates.map(date => {
+        {summaryDates.map(date => {
           const dayInSummary = days.find(day => {
             return dayjs(date).isSame(day.date, 'day')
           })
