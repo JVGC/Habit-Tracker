@@ -4,15 +4,9 @@ import { Container, Week, WeekDayName, Heatmap, DayToFill } from "./styles";
 import { useEffect, useState } from "react";
 import { DayService } from "../../services/DayService";
 import dayjs from "dayjs";
+import { Day } from "../../interfaces/models";
 
 const summaryDates = generateDatesFromRange()
-
-interface Day{
-  id: number;
-  date: string;
-  completed: number;
-  total: number;
-}
 
 export function SummaryTable(){
 

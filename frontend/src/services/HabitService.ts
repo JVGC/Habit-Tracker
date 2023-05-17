@@ -1,13 +1,6 @@
 import { api } from "../api/axios"
+import { CreateNewHabitRequest, ListHabitsRequest } from "../interfaces/api"
 
-interface CreateNewHabitRequest {
-  title: string;
-  startAt: string;
-}
-
-interface ListHabitsRequest {
-  date?: string
-}
 export class HabitService {
 
   static async createNewHabit({ title, startAt }: CreateNewHabitRequest){

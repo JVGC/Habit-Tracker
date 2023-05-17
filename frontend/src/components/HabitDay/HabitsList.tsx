@@ -4,11 +4,7 @@ import { HabitService } from "../../services/HabitService"
 import { Checkbox } from "../Checkbox/Checkbox";
 import { PopoverContent, PopoverArrow, SelectedDay, ProgressIndicator, SelectedDate, ProgressRoot } from "./styles";
 
-interface Habit {
-  id: number;
-  name: string;
-  start_at: string
-}
+import { Habit } from "../../interfaces/models";
 
 interface Props {
   date: Date;
