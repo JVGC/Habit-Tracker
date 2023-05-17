@@ -16,5 +16,4 @@ class Habit(models.Model):
 
   @staticmethod
   def getHabitsByDate(date):
-    print(date)
     return Habit.objects.filter(start_at__lte = date).order_by('start_at')
