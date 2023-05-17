@@ -1,41 +1,20 @@
 import * as Popover from '@radix-ui/react-popover'
 
-import { ProgressIndicator, ProgressRoot, PopoverArrow, PopoverContent, PopoverTrigger, SelectedDate, SelectedDay } from "./styles";
-import dayjs from 'dayjs';
-import { WEEKDAYS } from '../../utils/date';
+import { PopoverTrigger } from "./styles";
 import clsx from 'clsx';
-import { Checkbox } from '../Checkbox/Checkbox';
-import { useEffect, useState } from 'react';
-import { HabitService } from '../../services/HabitService';
+import { HabitsList } from './HabitsList';
 
 interface Props {
   date: Date;
-  completed: number;
-  total: number;
+  completed?: number;
+  total?: number;
 }
 
-interface Habit {
-  id: number;
-  name: string;
-  start_at: string
-}
-export function HabitDay({date, completed, total}: Props){
 
-  const [habits, setHabits] = useState<Habit[]>([])
+export function HabitDay({date, completed=0, total=0}: Props){
 
-  useEffect(() => {
-    async function GetDayHabits(){
-      const response = await HabitService.listHabits({
-        date: dayjs(date).format('YYYY-MM-DD')
-      })
-      setHabits(response)
-    }
+  const completedPercentage = total > 0 ? Math.round((completed/total) * 100) : 0
 
-    GetDayHabits()
-
-  })
-
-  const completedPercentage = Math.round((completed/total) * 100)
   return (
     <Popover.Root>
       <PopoverTrigger
@@ -48,21 +27,11 @@ export function HabitDay({date, completed, total}: Props){
           'progress-80-100': completedPercentage >=80
       })}/>
       <Popover.Portal>
-        <PopoverContent>
-          <SelectedDay>{WEEKDAYS[date.getDay()]}</SelectedDay>
-          <SelectedDate>{dayjs(date).format('DD/MM')}</SelectedDate>
-
-          <ProgressRoot value={completedPercentage}>
-          <ProgressIndicator completed={completedPercentage}/>
-
-          </ProgressRoot>
-
-          {habits && habits.map(habit => {
-            return <Checkbox text={habit.name} />
-          })}
-
-          <PopoverArrow height={8} width={16}/>
-        </PopoverContent>
+        <HabitsList
+          date={date}
+          total={total}
+          completed={completed}
+        />
       </Popover.Portal>
     </Popover.Root>
   )
