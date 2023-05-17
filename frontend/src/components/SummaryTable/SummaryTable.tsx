@@ -40,7 +40,7 @@ export function SummaryTable(){
                     key={date.toISOString()}
                     date={date}
                     total={dayInSummary?.total}
-                    completed={dayInSummary?.completed}
+                    completedStartValue={dayInSummary?.completed}
                   />
         })}
         {amountOfDaysToFill > 0 && Array.from({length: amountOfDaysToFill}).map((_, index) => (
