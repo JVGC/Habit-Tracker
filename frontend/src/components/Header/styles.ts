@@ -98,10 +98,6 @@ export const TitleLabel = styled.label`
   color: white;
 
 `
-export const RecurrenceLabel = styled(TitleLabel)`
-  margin-top: 1rem;
-`
-
 export const TitleInput = styled.input`
   padding: 1rem;
   border-radius: 0.5rem;

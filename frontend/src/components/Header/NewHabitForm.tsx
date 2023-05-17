@@ -1,5 +1,5 @@
 import { Check } from "phosphor-react";
-import { Form, TitleLabel, RecurrenceLabel, SubmitButton, TitleInput,  } from "./styles";
+import { Form, TitleLabel, SubmitButton, TitleInput,  } from "./styles";
 
 export function NewHabitForm(){
   return (
@@ -15,10 +15,6 @@ export function NewHabitForm(){
         placeholder="Gym, drink water, meditation..."
         autoFocus
       />
-
-      <RecurrenceLabel htmlFor="">
-        What is the recurrence?
-      </RecurrenceLabel>
 
       <SubmitButton type="submit">
         <Check size={20} weight="bold"/>
