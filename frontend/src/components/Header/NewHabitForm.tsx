@@ -12,12 +12,13 @@ export function NewHabitForm(){
     e.preventDefault()
     try{
       await HabitService.createNewHabit({title, startAt: dayjs(new Date()).format('YYYY-MM-DD')})
+      setTitle('')
     }catch(err){
       console.log(err)
     }
   }
   return (
-    <Form onSubmit={createNewHabit} action="">
+    <Form onSubmit={createNewHabit}>
 
       <TitleLabel htmlFor="title">
         What are you willing to do?
@@ -28,6 +29,7 @@ export function NewHabitForm(){
         type="text"
         placeholder="Gym, drink water, meditation..."
         autoFocus
+        value={title}
         onChange={e => setTitle(e.target.value)}
       />
 

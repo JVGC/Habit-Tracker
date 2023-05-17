@@ -6,13 +6,14 @@ import { X } from 'phosphor-react'
 import { NewHabitForm } from './NewHabitForm'
 
 export function Header(){
+
   return (
     <Container>
       <img src={logoImage} alt="logo" />
 
       <Dialog.Root>
 
-      <DialogTrigger  type="button">
+      <DialogTrigger type="button">
         <PlusIcon size={20}/>
         New Habit
       </DialogTrigger>
