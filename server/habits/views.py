@@ -3,6 +3,7 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from .models import Habit
 from .serializers import HabitSerializer
+from django.db.models import Sum
 
 class AddNewHabit(generics.CreateAPIView):
     queryset = Habit.objects.all()
@@ -14,7 +15,7 @@ class ListHabits(views.APIView):
     def get(self, request: Request) -> Response:
       requested_date = request.query_params.get('date', None)
       if requested_date:
-        habits = Habit.getHabitsByDate(date=request.query_params.get('date', None))
+        habits = Habit.getHabitsByDate(date=request.query_params['date']).annotate(completed=Sum("dayhabit__completed", default=False))
       else:
         habits = Habit.objects.all()
       serializer = HabitSerializer(habits, many=True)
