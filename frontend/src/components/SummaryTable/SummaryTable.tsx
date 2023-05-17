@@ -1,11 +1,29 @@
 import { HabitDay } from "../HabitDay/HabitDay";
-import { WEEKDAYS, generateDatesFromRange } from "../../utils/date";
+import { WEEKDAYS } from "../../utils/date";
 import { Container, Week, WeekDayName, Heatmap, DayToFill } from "./styles";
+import { useEffect, useState } from "react";
+import { DayService } from "../../services/DayService";
 
-const summaryDates = generateDatesFromRange()
-const amountOfDaysToFill = 7- (summaryDates.length%7)
+
+interface Day{
+  id: number;
+  date: string;
+  completed: number;
+  total: number;
+}
 
 export function SummaryTable(){
+
+  const [days, setDays] = useState<Day[]>([])
+  const amountOfDaysToFill = 7- (days.length%7)
+
+  useEffect(() => {
+    async function listDays(){
+      const response = await DayService.listDays()
+      setDays(response)
+    }
+    listDays()
+  }, [])
   return(
     <Container>
       <Week>
@@ -18,8 +36,8 @@ export function SummaryTable(){
         }
       </Week>
       <Heatmap>
-        {summaryDates.map((date, index) => (
-          <HabitDay date={date} total={5} completed={Math.round(Math.random() * 5)} key={index}/>
+        {days.map((day, index) => (
+          <HabitDay date={new Date(day.date)} total={day.total} completed={day.completed} key={index}/>
         ))}
         {amountOfDaysToFill > 0 && Array.from({length: amountOfDaysToFill}).map((_, index) => (
           <DayToFill key={index} />
