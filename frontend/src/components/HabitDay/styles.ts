@@ -8,7 +8,12 @@ export const PopoverTrigger = styled(Popover.Trigger)`
 
   border-width: 2px;
   border-radius: 0.5rem;
+
   cursor: pointer;
+
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 `
 
 export const PopoverContent = styled(Popover.Content)`
@@ -55,4 +60,8 @@ export const ProgressIndicator = styled(Progress.Indicator)<{
   background-color: #7C3AED;
 
   width: ${props => props.completed}%;
+
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
 `
