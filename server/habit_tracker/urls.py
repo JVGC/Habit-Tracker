@@ -1,5 +1,5 @@
 """
-URL configuration for habitTracker project.
+URL configuration for habit_tracker project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -23,6 +23,8 @@ from rest_framework import routers, serializers, viewsets
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
+    """User Serializer model"""
+
     class Meta:
         model = User
         fields = ["url", "username", "email", "is_staff"]
@@ -30,6 +32,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 # ViewSets define the view behavior.
 class UserViewSet(viewsets.ModelViewSet):
+    """User View Set"""
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
 

@@ -1,9 +1,10 @@
+""" Habits related Models """
 from django.db import models
-
-# Create your models here.
 
 
 class Habit(models.Model):
+    """Habit Model"""
+
     name = models.CharField(max_length=30)
     start_at = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -16,5 +17,6 @@ class Habit(models.Model):
         db_table = "habits"  # Change Table Name
 
     @staticmethod
-    def getHabitsByDate(date):
+    def get_habits_by_date(date):
+        """Get all the habits where start_at are less or equal then a given date"""
         return Habit.objects.filter(start_at__lte=date).order_by("start_at")
