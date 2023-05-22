@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+
+# pylint: disable=imported-auth-user
 from django.contrib.auth.models import User
 
 from rest_framework import routers, serializers, viewsets
@@ -31,6 +33,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
 
 # ViewSets define the view behavior.
+# pylint: disable=too-many-ancestors
 class UserViewSet(viewsets.ModelViewSet):
     """User View Set"""
 
