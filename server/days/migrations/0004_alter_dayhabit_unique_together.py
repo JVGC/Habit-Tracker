@@ -4,15 +4,14 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('habits', '0001_create_model_habit'),
-        ('days', '0003_dayhabit_day_habits'),
+        ("habits", "0001_create_model_habit"),
+        ("days", "0003_dayhabit_day_habits"),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='dayhabit',
-            unique_together={('habit', 'day')},
+            name="dayhabit",
+            unique_together={("habit", "day")},
         ),
     ]

@@ -5,25 +5,39 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
-    dependencies = [
-        ('days', '0002_day'),
-        ('habits','0001_create_model_habit')
-    ]
+    dependencies = [("days", "0002_day"), ("habits", "0001_create_model_habit")]
 
     operations = [
         migrations.CreateModel(
-            name='DayHabit',
+            name="DayHabit",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('completed', models.BooleanField(default=False)),
-                ('day', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='days.day')),
-                ('habit', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='habits.habit')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("completed", models.BooleanField(default=False)),
+                (
+                    "day",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="days.day"
+                    ),
+                ),
+                (
+                    "habit",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="habits.habit"
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='day',
-            name='habits',
-            field=models.ManyToManyField(through='days.DayHabit', to='habits.habit'),
+            model_name="day",
+            name="habits",
+            field=models.ManyToManyField(through="days.DayHabit", to="habits.habit"),
         ),
     ]
