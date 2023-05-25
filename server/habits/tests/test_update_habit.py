@@ -1,3 +1,8 @@
+# pylint: disable=missing-module-docstring
+# pylint: disable=missing-class-docstring
+# pylint: disable=missing-function-docstring
+
+
 from datetime import datetime
 from rest_framework.test import APIClient, APITestCase
 from habits.models import Habit
