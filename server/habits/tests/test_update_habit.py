@@ -78,3 +78,12 @@ class UpdateHabitTest(APITestCase):
         response_data = response.data
         self.assertEqual(response_data["id"], habit.pk)
         self.assertEqual(response_data["name"], request_body["name"])
+
+    def test_update_habit_does_not_exist(self):
+        client = APIClient()
+        habit_name = "habit1"
+        start_at = datetime.today().date()
+        request_body = {"name": habit_name, "start_at": start_at}
+        response = client.put("/habits/update/123", data=request_body)
+
+        self.assertEqual(response.status_code, 404)
