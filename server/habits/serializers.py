@@ -6,7 +6,7 @@ from .models import Habit
 class HabitSerializer(serializers.ModelSerializer):
     """Habit Model Serializer"""
 
-    completed = serializers.BooleanField(required=False)
+    completed = serializers.BooleanField(required=False, read_only=True)
 
     class Meta:
         model = Habit
