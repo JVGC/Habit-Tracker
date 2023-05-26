@@ -20,3 +20,7 @@ class Habit(models.Model):
     def get_habits_by_date(date):
         """Get all the habits where start_at are less or equal then a given date"""
         return Habit.objects.filter(start_at__lte=date).order_by("start_at")
+
+    @staticmethod
+    def get_by_id(id):
+        return Habit.objects.get(id=id)
