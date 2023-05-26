@@ -1,7 +1,7 @@
 """ Day App Views """
 
 from datetime import datetime
-from rest_framework import generics, views
+from rest_framework import views
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django.core.exceptions import ObjectDoesNotExist
