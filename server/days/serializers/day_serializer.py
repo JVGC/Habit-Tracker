@@ -7,8 +7,8 @@ from days.models import Day
 class DaySerializer(serializers.ModelSerializer):
     """Day Model Serializer"""
 
-    completed = serializers.IntegerField(required=False)
-    total = serializers.IntegerField(required=False)
+    completed = serializers.IntegerField(required=False, read_only=True)
+    total = serializers.IntegerField(required=False, read_only=True)
 
     class Meta:
         model = Day
