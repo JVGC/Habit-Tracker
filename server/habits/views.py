@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from django.db.models import Sum
 
 from days.models import Day, DayHabit
-from .models import Habit
+from .models.Habit import Habit
 from .serializers import HabitSerializer
 
 
