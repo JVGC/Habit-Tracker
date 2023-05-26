@@ -51,7 +51,7 @@ class CheckHabitTest(APITestCase):
         response = client.put("/days/check", data=request_body)
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(Day.objects.get(date=today).date, today)
+        self.assertEqual(Day.get_by_date(date=today).date, today)
 
     def test_check_habit_already_checked(self):
         today = datetime.today().date()
@@ -76,4 +76,4 @@ class CheckHabitTest(APITestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["completed"], True)
-        self.assertEqual(Day.objects.get(date=today).date, today)
+        self.assertEqual(Day.get_by_date(date=today).date, today)
