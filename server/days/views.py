@@ -23,7 +23,7 @@ class CheckHabit(views.APIView):
         response_data = CheckHabitUseCase().execute(
             {
                 "habit": request.data["habit"],
-                "date": request.data.get("date", ""),
+                "date": request.data["date"],
             }
         )
         return Response(status=response_data["status"], data=response_data["data"])
