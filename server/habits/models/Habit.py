@@ -1,4 +1,4 @@
-""" Habits related Models """
+""" Habits Model """
 from django.db import models
 
 
