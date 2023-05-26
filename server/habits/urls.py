@@ -7,5 +7,4 @@ from . import views
 urlpatterns = [
     path("add", views.AddNewHabit.as_view(), name="AddNewHabit"),
     path("", views.ListHabits.as_view(), name="ListHabits"),
-    path("delete/<int:id>", views.DeleteHabit.as_view(), name="DeleteHabit"),
 ]

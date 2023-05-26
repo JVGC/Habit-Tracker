@@ -40,11 +40,3 @@ class ListHabits(views.APIView):
             habits = Habit.objects.all()
         serializer = HabitSerializer(habits, many=True)
         return Response(data=serializer.data)
-
-
-class DeleteHabit(generics.DestroyAPIView):
-    """Delete Habit API View"""
-
-    queryset = Habit.objects.all()
-    serializer_class = HabitSerializer
-    lookup_field = "id"
