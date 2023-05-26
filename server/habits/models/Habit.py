@@ -1,4 +1,5 @@
 """ Habits Model """
+from datetime import datetime
 from django.db import models
 
 
@@ -24,3 +25,6 @@ class Habit(models.Model):
     @staticmethod
     def get_by_id(id):
         return Habit.objects.get(id=id)
+
+    def has_started(self, date=datetime.today().date()):
+        return date >= self.start_at
