@@ -8,7 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Count, Q
 
 from habits.models import Habit
-from .serializers import DaySerializer
+from .serializers import DaySerializer, DayHabitSerializer
 from .models import Day, DayHabit
 
 
@@ -74,10 +74,12 @@ class CheckHabit(views.APIView):
         day_habit: DayHabit
         try:
             day_habit = DayHabit.objects.get(habit=habit, day=day)
-            day_habit = DayHabit(
+            DayHabit(
                 id=day_habit.pk, habit=habit, day=day, completed=not day_habit.completed
             ).save(force_update=True)
+            day_habit = DayHabit.objects.get(habit=habit, day=day)
         except ObjectDoesNotExist:
-            day_habit = DayHabit(habit=habit, day=day, completed=True).save()
-
-        return Response(data=day_habit, status=200)
+            DayHabit(habit=habit, day=day, completed=True).save()
+            day_habit = DayHabit.objects.get(habit=habit, day=day)
+        serializer = DayHabitSerializer(day_habit)
+        return Response(data=serializer.data, status=200)
