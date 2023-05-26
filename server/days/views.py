@@ -12,26 +12,6 @@ from .serializers import DaySerializer, DayHabitSerializer
 from .models import Day, DayHabit
 
 
-class AddNewDay(generics.CreateAPIView):
-    """Add New Day View"""
-
-    queryset = Day.objects.all
-    serializer_class = DaySerializer
-    lookup_field = "id"
-
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        try:
-            Day.objects.get(date=request.data["date"])
-            return Response(
-                status=400,
-                data={"date": "This date already has a correspondent Day Object"},
-            )
-        except ObjectDoesNotExist:
-            return super().create(request, *args, **kwargs)
-
-
 class ListDays(views.APIView):
     """List Days View"""
 
