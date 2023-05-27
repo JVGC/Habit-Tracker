@@ -26,9 +26,7 @@ class CheckHabitUseCase:
                 is_valid=False,
                 data={"status": 400, "data": day_serializer.errors},
             )
-        return IsValidResponse(is_valid=True, data=None)
 
-    def _validate_habit(self, data: RequestData) -> IsValidResponse:
         try:
             habit = Habit.get_by_id(data["habit"])
         except ObjectDoesNotExist:
@@ -36,6 +34,7 @@ class CheckHabitUseCase:
                 is_valid=False,
                 data={"status": 404, "data": {"habit": "Habit does not exist"}},
             )
+
         if not habit.has_started(
             datetime.strptime(data["date"], DATE_FIELD_FORMAT).date()
         ):
@@ -53,10 +52,7 @@ class CheckHabitUseCase:
         if not is_input_valid["is_valid"] and is_input_valid["data"]:
             return is_input_valid["data"]
 
-        is_habit_valid = self._validate_habit(data)
-        if not is_habit_valid["is_valid"] and is_habit_valid["data"]:
-            return is_habit_valid["data"]
-        habit: Habit = is_habit_valid["data"]
+        habit: Habit = is_input_valid["data"]
         try:
             day = Day.get_by_date(data["date"])
         except ObjectDoesNotExist:
