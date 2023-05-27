@@ -54,9 +54,9 @@ class CheckHabitUseCase:
             return is_input_valid["data"]
 
         is_habit_valid = self._validate_habit(data)
-        if not is_habit_valid["is_valid"] and is_input_valid["data"]:
-            return is_input_valid["data"]
-        habit = is_habit_valid["data"]
+        if not is_habit_valid["is_valid"] and is_habit_valid["data"]:
+            return is_habit_valid["data"]
+        habit: Habit = is_habit_valid["data"]
         try:
             day = Day.get_by_date(data["date"])
         except ObjectDoesNotExist:
@@ -66,13 +66,11 @@ class CheckHabitUseCase:
         day_habit: DayHabit
         try:
             day_habit = DayHabit.objects.get(habit=habit, day=day)
-            DayHabit(
-                id=day_habit.pk, habit=habit, day=day, completed=not day_habit.completed
-            ).save(force_update=True)
-            day_habit = DayHabit.objects.get(habit=habit, day=day)
+            day_habit.completed = not day_habit.completed
+            day_habit.save(force_update=True)
         except ObjectDoesNotExist:
-            DayHabit(habit=habit, day=day, completed=True).save()
-            day_habit = DayHabit.objects.get(habit=habit, day=day)
+            day_habit = DayHabit(habit=habit, day=day, completed=True)
+            day_habit.save()
 
         serializer = DayHabitSerializer(day_habit)
         return ResponseData(status=200, data=serializer.data)
