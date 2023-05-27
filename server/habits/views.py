@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from django.db.models import Sum
 
 from days.models import Day, DayHabit
+from .use_cases.list_date_habits import ListDateHabitsUseCase
 from .models.Habit import Habit
 from .serializers import HabitSerializer
 
@@ -24,18 +25,7 @@ class ListHabits(views.APIView):
         """GET Request for List Habits API View"""
         requested_date = request.query_params.get("date", None)
         if requested_date:
-            habits = Habit.get_habits_by_date(
-                date=request.query_params["date"]
-            ).annotate(completed=Sum("dayhabit__completed", default=False))
-            day = Day.objects.filter(date=request.query_params["date"])
-            if day:
-                day_habits = DayHabit.objects.filter(day__id=day[0].id).all()
-                for habit in habits:
-                    if not day_habits.filter(habit__id=habit.id):
-                        habit.completed = False
-            else:
-                for habit in habits:
-                    habit.completed = False
+            habits = ListDateHabitsUseCase().execute({"date": requested_date})
         else:
             habits = Habit.objects.all()
         serializer = HabitSerializer(habits, many=True)
