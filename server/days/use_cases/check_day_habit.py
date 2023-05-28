@@ -1,10 +1,10 @@
 """ Check Habit in a Day Use Case Class """
-from typing import TypedDict, Optional, Any
+from typing import TypedDict, Any
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 
 from days.models import Day, DayHabit
-from days.serializers import DaySerializer, DayHabitSerializer
+from days.serializers import DayHabitSerializer
 from habits.models import Habit
 
 
@@ -19,14 +19,6 @@ class CheckDayHabitUseCase:
     """Check Habit Use Case Implementation"""
 
     def _validate_input(self, data: RequestData) -> IsValidResponse:
-        day_serializer = DaySerializer(data={"date": data["date"]})  # type: ignore
-        is_date_valid = day_serializer.is_valid()
-        if not is_date_valid:
-            return IsValidResponse(
-                is_valid=False,
-                data={"status": 400, "data": day_serializer.errors},
-            )
-
         try:
             habit = Habit.get_by_id(data["habit"])
         except ObjectDoesNotExist:
