@@ -24,8 +24,8 @@ IsValidResponse = TypedDict("is_valid_response", {"is_valid": bool, "data": Any}
 class ListHabits(views.APIView):
     """List Habits API View"""
 
-    def _validate(self, input):
-        day_serializer = DaySerializer(data={"date": input["date"]})  # type: ignore
+    def _validate(self, input_data):
+        day_serializer = DaySerializer(data={"date": input_data["date"]})  # type: ignore
         is_date_valid = day_serializer.is_valid()
         if not is_date_valid:
             return IsValidResponse(
