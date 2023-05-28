@@ -23,8 +23,8 @@ class Habit(models.Model):
         return Habit.objects.filter(start_at__lte=date).order_by("start_at")
 
     @staticmethod
-    def get_by_id(id):
-        return Habit.objects.get(id=id)
+    def get_by_id(_id: str):
+        return Habit.objects.get(id=_id)
 
     def has_started(self, date=datetime.today().date()):
         return date >= self.start_at

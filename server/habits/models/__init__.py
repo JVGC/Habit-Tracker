@@ -1,1 +1,1 @@
-from .Habit import Habit
+from .habit import Habit

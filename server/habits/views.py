@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from days.serializers import DaySerializer
 from .use_cases.list_date_habits import ListDateHabitsUseCase
-from .models.Habit import Habit
+from .models.habit import Habit
 from .serializers import HabitSerializer
 
 

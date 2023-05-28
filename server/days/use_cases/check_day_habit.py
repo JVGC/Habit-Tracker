@@ -7,7 +7,7 @@ from habit_tracker.interfaces import UseCase
 from days.models import Day, DayHabit
 from days.serializers import DayHabitSerializer
 from habits.models import Habit
-from habits.errors import HabitDoesNotExistError, HabitDidNotStartedYet
+from habits.errors import HabitDoesNotExistError, HabitDidNotStartYet
 
 
 DATE_FIELD_FORMAT = "%Y-%m-%d"
@@ -26,7 +26,7 @@ class CheckDayHabitUseCase(UseCase):
             raise HabitDoesNotExistError() from exc
 
         if not habit.has_started(datetime.strptime(date, DATE_FIELD_FORMAT).date()):
-            raise HabitDidNotStartedYet()
+            raise HabitDidNotStartYet()
 
         return habit
 

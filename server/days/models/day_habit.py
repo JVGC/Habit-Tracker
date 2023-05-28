@@ -2,7 +2,7 @@
 
 from django.db import models
 
-from habits.models.Habit import Habit
+from habits.models.habit import Habit
 from .day import Day
 
 

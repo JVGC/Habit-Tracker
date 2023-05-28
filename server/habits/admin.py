@@ -1,6 +1,6 @@
 """ Django Admin App Habits Configurations """
 from django.contrib import admin
-from .models.Habit import Habit
+from .models.habit import Habit
 
 # Register your models here.
 

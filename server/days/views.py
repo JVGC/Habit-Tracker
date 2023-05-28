@@ -3,7 +3,7 @@
 from rest_framework import views
 from rest_framework.response import Response
 
-from habits.errors import HabitDoesNotExistError, HabitDidNotStartedYet
+from habits.errors import HabitDoesNotExistError, HabitDidNotStartYet
 from .use_cases import ListDaysUseCase, CheckDayHabitUseCase
 from .serializers import DaySerializer
 
@@ -35,7 +35,7 @@ class CheckDayHabit(views.APIView):
                 request.data["habit"], request.data["date"]
             )
             return Response(status=200, data=response_data)
-        except HabitDidNotStartedYet as error:
+        except HabitDidNotStartYet as error:
             return Response(status=400, data={"date": error.message})
         except HabitDoesNotExistError as error:
             return Response(status=404, data={"habit": error.message})

@@ -2,7 +2,7 @@
 from django.db import models
 from django.db.models import Q, Count
 
-from habits.models.Habit import Habit
+from habits.models.habit import Habit
 
 
 class Day(models.Model):
