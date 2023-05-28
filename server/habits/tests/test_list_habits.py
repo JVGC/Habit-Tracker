@@ -10,10 +10,14 @@ from days.models import Day, DayHabit
 
 
 class ListHabitsTest(APITestCase):
+    def setUp(self) -> None:
+        self.client = APIClient()
+
     def test_list_habits_date_incorrect_format(self):
-        client = APIClient()
         today = datetime.today()
-        response = client.get("/habits/", {"date": today})
+
+        response = self.client.get("/habits/", {"date": today})
+
         self.assertEqual(response.status_code, 400)
         self.assertIn("Date has wrong format", str(response.data["date"]))
 
@@ -23,8 +27,7 @@ class ListHabitsTest(APITestCase):
         start_at = datetime(today.year + 1, today.month, today.day).date()
         Habit(name=habit_name, start_at=start_at).save()
 
-        client = APIClient()
-        response = client.get("/habits/", {"date": today})
+        response = self.client.get("/habits/", {"date": today})
 
         self.assertEqual(len(response.data), 0)
 
@@ -33,8 +36,7 @@ class ListHabitsTest(APITestCase):
         start_at = datetime.today().date()
         habit = Habit.objects.create(name=habit_name, start_at=start_at)
 
-        client = APIClient()
-        response = client.get("/habits/", {"date": start_at})
+        response = self.client.get("/habits/", {"date": start_at})
 
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]["id"], habit.pk)
@@ -48,8 +50,7 @@ class ListHabitsTest(APITestCase):
         day = Day.objects.create(date=start_at)
         DayHabit(habit=habit, day=day, completed=True).save()
 
-        client = APIClient()
-        response = client.get("/habits/", {"date": start_at})
+        response = self.client.get("/habits/", {"date": start_at})
 
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]["id"], habit.pk)
@@ -65,8 +66,7 @@ class ListHabitsTest(APITestCase):
         )
         DayHabit(habit=habit, day=day, completed=True).save()
 
-        client = APIClient()
-        response = client.get("/habits/", {"date": today})
+        response = self.client.get("/habits/", {"date": today})
 
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]["id"], habit.pk)
@@ -82,8 +82,7 @@ class ListHabitsTest(APITestCase):
         )
         DayHabit(habit=habit, day=day, completed=True).save()
 
-        client = APIClient()
-        response = client.get("/habits/", {"date": today})
+        response = self.client.get("/habits/", {"date": today})
 
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0]["id"], habit.pk)
@@ -100,8 +99,7 @@ class ListHabitsTest(APITestCase):
         habit_name = "habit2"
         habit2 = Habit.objects.create(name=habit_name, start_at=start_at)
 
-        client = APIClient()
-        response = client.get("/habits/", {"date": start_at})
+        response = self.client.get("/habits/", {"date": start_at})
 
         self.assertEqual(len(response.data), 2)
         self.assertEqual(response.data[0]["id"], habit.pk)
