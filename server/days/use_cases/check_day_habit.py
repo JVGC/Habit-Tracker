@@ -16,7 +16,9 @@ class CheckDayHabitUseCase:
     """Check Habit Use Case Implementation"""
 
     @staticmethod
-    def _validate_input(habit_id: str = "", date: str = "") -> Habit:
+    def get_and_validate_habit(habit_id: str = "", date: str = "") -> Habit:
+        """Gets habit by ID and validates if it has started.
+        Returns the Habit otherwise it raises an error"""
         try:
             habit = Habit.get_by_id(habit_id)
         except ObjectDoesNotExist as exc:
@@ -29,10 +31,10 @@ class CheckDayHabitUseCase:
 
     @staticmethod
     def execute(habit_id: str = "", date: str = "") -> ReturnDict:
-        """Marks an habit in a given date as completed if it's completed
+        """Marks an habit in a given date as completed if it's not completed
         and as not completed if it's already completed.
         """
-        habit = CheckDayHabitUseCase._validate_input(habit_id, date)
+        habit = CheckDayHabitUseCase.get_and_validate_habit(habit_id, date)
 
         try:
             day = Day.get_by_date(date)
