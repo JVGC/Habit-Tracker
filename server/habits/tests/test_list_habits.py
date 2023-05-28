@@ -16,6 +16,13 @@ class ListHabitsTest(APITestCase):
 
         self.assertEqual(len(response.data), 0)
 
+    def test_list_habits_date_incorrect_format(self):
+        client = APIClient()
+        today = datetime.today()
+        response = client.get("/habits/", {"date": today})
+        self.assertEqual(response.status_code, 400)
+        self.assertIn("Date has wrong format", str(response.data["date"]))
+
     def test_list_habits_all_habits_at_all(self):
         habit_name = "habit1"
         today = datetime.today().date()
