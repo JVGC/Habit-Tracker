@@ -1,2 +1,2 @@
 from .list_days import ListDaysUseCase
-from .check_habit import CheckHabitUseCase
+from .check_day_habit import CheckDayHabitUseCase

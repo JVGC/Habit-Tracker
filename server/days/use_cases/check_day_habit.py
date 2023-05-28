@@ -15,7 +15,7 @@ IsValidResponse = TypedDict("is_valid_response", {"is_valid": bool, "data": Any}
 DATE_FIELD_FORMAT = "%Y-%m-%d"
 
 
-class CheckHabitUseCase:
+class CheckDayHabitUseCase:
     """Check Habit Use Case Implementation"""
 
     def _validate_input(self, data: RequestData) -> IsValidResponse:
