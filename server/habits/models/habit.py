@@ -19,12 +19,15 @@ class Habit(models.Model):
 
     @staticmethod
     def get_habits_by_date(date):
-        """Get all the habits where start_at are less or equal then a given date"""
+        """Get all the habits where start_at is less or equal then a given date"""
         return Habit.objects.filter(start_at__lte=date).order_by("start_at")
 
     @staticmethod
     def get_by_id(_id: str):
+        """Get Habit by its ID"""
         return Habit.objects.get(id=_id)
 
     def has_started(self, date=datetime.today().date()):
+        """Returns True if sent date is greater or equal than habit start_at property,
+        otherwise return False"""
         return date >= self.start_at
