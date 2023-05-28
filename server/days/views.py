@@ -14,7 +14,7 @@ class ListDays(views.APIView):
     def get(self, _) -> Response:
         """GET Request for List Days View"""
         response_data = ListDaysUseCase.execute()
-        return Response(200, response_data)
+        return Response(status=200, data=response_data)
 
 
 class CheckDayHabit(views.APIView):
