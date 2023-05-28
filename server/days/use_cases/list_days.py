@@ -2,13 +2,12 @@
 
 from rest_framework.exceptions import ReturnDict
 
-from habit_tracker.interfaces import UseCase
 from days.serializers import DaySerializer
 from days.models.day import Day
 from habits.models import Habit
 
 
-class ListDaysUseCase(UseCase):
+class ListDaysUseCase:
     """List Days Use Case Implementation"""
 
     @staticmethod

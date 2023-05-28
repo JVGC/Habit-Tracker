@@ -2,13 +2,12 @@
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.exceptions import ReturnDict
 
-from habit_tracker.interfaces import UseCase
 from days.models import DayHabit, Day
 from habits.models import Habit
 from habits.serializers import HabitSerializer
 
 
-class ListDateHabitsUseCase(UseCase):
+class ListDateHabitsUseCase:
     """ListDateHabits Use Case Implementation"""
 
     @staticmethod

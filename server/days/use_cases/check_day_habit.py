@@ -3,7 +3,6 @@ from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.exceptions import ReturnDict
 
-from habit_tracker.interfaces import UseCase
 from days.models import Day, DayHabit
 from days.serializers import DayHabitSerializer
 from habits.models import Habit
@@ -13,7 +12,7 @@ from habits.errors import HabitDoesNotExistError, HabitDidNotStartYet
 DATE_FIELD_FORMAT = "%Y-%m-%d"
 
 
-class CheckDayHabitUseCase(UseCase):
+class CheckDayHabitUseCase:
     """Check Habit Use Case Implementation"""
 
     @staticmethod
