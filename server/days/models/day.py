@@ -17,11 +17,14 @@ class Day(models.Model):
         return self.date.isoformat()
 
     @staticmethod
-    def get_by_date(date):
+    def get_by_date(date: str):
+        """Get Day by its date. Should be in DD/MM/YYYY format."""
         return Day.objects.get(date=date)
 
     @staticmethod
     def count_completed_habits():
+        """Annotate Helper function.
+        Counts the number of completed habits in a Day."""
         return Count("dayhabit", filter=Q(dayhabit__completed=True))
 
     class Meta:
