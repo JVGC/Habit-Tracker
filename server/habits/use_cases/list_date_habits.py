@@ -1,5 +1,4 @@
 """ List Habits for a Date Use Case Class """
-from django.db.models import Sum
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.exceptions import ReturnDict
 
@@ -15,16 +14,17 @@ class ListDateHabitsUseCase(UseCase):
     @staticmethod
     def execute(date: str = "") -> ReturnDict:
         """List all the habits for a given date"""
-        habits = Habit.get_habits_by_date(date=date).annotate(
-            completed=Sum("dayhabit__completed", default=False)
-        )
+        habits = Habit.get_habits_by_date(date=date)
         habits = HabitSerializer(habits, many=True).data
         try:
             day = Day.objects.get(date=date)
             day_habits = DayHabit.objects.filter(day__id=day.pk)
             for habit in habits:
-                if not day_habits.filter(habit__id=habit["id"]):
+                day_habit = day_habits.filter(habit__id=habit["id"])
+                if not day_habit:
                     habit["completed"] = False
+                else:
+                    habit["completed"] = day_habit[0].completed
         except ObjectDoesNotExist:
             for habit in habits:
                 habit["completed"] = False
