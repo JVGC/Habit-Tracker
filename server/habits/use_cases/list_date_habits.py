@@ -1,9 +1,11 @@
 """ List Habits for a Date Use Case Class """
 from typing import TypedDict
 from django.db.models import Sum
+from django.core.exceptions import ObjectDoesNotExist
 
 from days.models import DayHabit, Day
 from habits.models import Habit
+from habits.serializers import HabitSerializer
 
 
 RequestData = TypedDict("request_data", {"date": str})
@@ -17,13 +19,14 @@ class ListDateHabitsUseCase:
         habits = Habit.get_habits_by_date(date=data["date"]).annotate(
             completed=Sum("dayhabit__completed", default=False)
         )
-        day = Day.objects.filter(date=data["date"])
-        if day:
-            day_habits = DayHabit.objects.filter(day__id=day[0].pk).all()
+        habits = HabitSerializer(habits, many=True).data
+        try:
+            day = Day.objects.get(date=data["date"])
+            day_habits = DayHabit.objects.filter(day__id=day.pk)
             for habit in habits:
-                if not day_habits.filter(habit__id=habit.pk):
-                    habit.completed = False
-        else:
+                if not day_habits.filter(habit__id=habit["id"]):
+                    habit["completed"] = False
+        except ObjectDoesNotExist:
             for habit in habits:
-                habit.completed = False
+                habit["completed"] = False
         return habits

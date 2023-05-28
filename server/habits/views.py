@@ -36,17 +36,10 @@ class ListHabits(views.APIView):
 
     def get(self, request: Request) -> Response:
         """GET Request for List Habits API View"""
-        requested_date = request.query_params.get("date", None)
-        if requested_date:
-            is_input_valid = self._validate(request.query_params)
-            if is_input_valid["is_valid"]:
-                habits = ListDateHabitsUseCase().execute({"date": requested_date})
-            else:
-                response_data = is_input_valid["data"]
-                return Response(
-                    status=response_data["status"], data=response_data["data"]
-                )
-        else:
-            habits = Habit.objects.all()
-        serializer = HabitSerializer(habits, many=True)
-        return Response(data=serializer.data)
+        is_input_valid = self._validate(request.query_params)
+        if not is_input_valid["is_valid"]:
+            response_data = is_input_valid["data"]
+            return Response(status=response_data["status"], data=response_data["data"])
+
+        habits = ListDateHabitsUseCase().execute({"date": request.query_params["date"]})
+        return Response(data=habits)
