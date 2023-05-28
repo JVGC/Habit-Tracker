@@ -1,7 +1,7 @@
 """ Check Habit in a Day Use Case Class """
-from typing import TypedDict
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
+from rest_framework.exceptions import ReturnDict
 
 from days.models import Day, DayHabit
 from days.serializers import DayHabitSerializer
@@ -9,41 +9,37 @@ from habits.models import Habit
 from habits.errors import HabitDoesNotExistError, HabitDidNotStartedYet
 
 
-RequestData = TypedDict("request_data", {"habit": str, "date": str})
-ResponseData = TypedDict("response_data", {"data": dict[str, str]})
-
 DATE_FIELD_FORMAT = "%Y-%m-%d"
 
 
 class CheckDayHabitUseCase:
     """Check Habit Use Case Implementation"""
 
-    def _validate_input(self, data: RequestData) -> Habit:
+    @staticmethod
+    def _validate_input(habit_id: str = "", date: str = "") -> Habit:
         try:
-            habit = Habit.get_by_id(data["habit"])
+            habit = Habit.get_by_id(habit_id)
         except ObjectDoesNotExist as exc:
             raise HabitDoesNotExistError() from exc
 
-        if not habit.has_started(
-            datetime.strptime(data["date"], DATE_FIELD_FORMAT).date()
-        ):
+        if not habit.has_started(datetime.strptime(date, DATE_FIELD_FORMAT).date()):
             raise HabitDidNotStartedYet()
 
         return habit
 
-    def execute(self, data: RequestData) -> ResponseData:
+    @staticmethod
+    def execute(habit_id: str = "", date: str = "") -> ReturnDict:
         """Marks an habit in a given date as completed if it's completed
         and as not completed if it's already completed.
         """
-        habit = self._validate_input(data)
+        habit = CheckDayHabitUseCase._validate_input(habit_id, date)
 
         try:
-            day = Day.get_by_date(data["date"])
+            day = Day.get_by_date(date)
         except ObjectDoesNotExist:
-            day = Day(date=data["date"])
+            day = Day(date=date)
             day.save()
 
-        day_habit: DayHabit
         try:
             day_habit = DayHabit.objects.get(habit=habit, day=day)
             day_habit.completed = not day_habit.completed
@@ -53,4 +49,4 @@ class CheckDayHabitUseCase:
             day_habit.save()
 
         serializer = DayHabitSerializer(day_habit)
-        return ResponseData(data=serializer.data)
+        return serializer.data

@@ -1,6 +1,5 @@
 """ Day App Views """
 
-from typing import TypedDict, Any
 from rest_framework import views
 from rest_framework.response import Response
 
@@ -18,37 +17,24 @@ class ListDays(views.APIView):
         return Response(status=response_data["status"], data=response_data["data"])
 
 
-IsValidResponse = TypedDict("is_valid_response", {"is_valid": bool, "data": Any})
-
-
 class CheckDayHabit(views.APIView):
     """Check Habit View"""
 
-    def _validate(self, input_data):
-        day_serializer = DaySerializer(data={"date": input_data["date"]})  # type: ignore
-        is_date_valid = day_serializer.is_valid()
-        if not is_date_valid:
-            return IsValidResponse(
-                is_valid=False,
-                data={"status": 400, "data": day_serializer.errors},
-            )
-        return IsValidResponse(is_valid=True, data=None)
+    def _validate(self, date=None) -> None:
+        """Validate Request params and body.
+        Raises Exception if input is not valid
+        """
+        day_serializer = DaySerializer(data={"date": date})  # type: ignore
+        day_serializer.is_valid(raise_exception=True)
 
     def put(self, request) -> Response:
         """PUT Request for Check Habit View"""
-        is_input_valid = self._validate(request.data)
-        if not is_input_valid["is_valid"]:
-            response_data = is_input_valid["data"]
-            return Response(status=response_data["status"], data=response_data["data"])
-
+        self._validate(request.data.get("date"))
         try:
-            response_data = CheckDayHabitUseCase().execute(
-                {
-                    "habit": request.data["habit"],
-                    "date": request.data["date"],
-                }
+            response_data = CheckDayHabitUseCase.execute(
+                request.data["habit"], request.data["date"]
             )
-            return Response(status=200, data=response_data["data"])
+            return Response(status=200, data=response_data)
         except HabitDidNotStartedYet as error:
             return Response(status=400, data={"date": error.message})
         except HabitDoesNotExistError as error:
