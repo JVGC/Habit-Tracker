@@ -1,16 +1,16 @@
 """ Check Habit in a Day Use Case Class """
-from typing import TypedDict, Any
+from typing import TypedDict
 from datetime import datetime
 from django.core.exceptions import ObjectDoesNotExist
 
 from days.models import Day, DayHabit
 from days.serializers import DayHabitSerializer
 from habits.models import Habit
+from habits.errors import HabitDoesNotExistError, HabitDidNotStartedYet
 
 
 RequestData = TypedDict("request_data", {"habit": str, "date": str})
-ResponseData = TypedDict("response_data", {"status": int, "data": dict[str, str]})
-IsValidResponse = TypedDict("is_valid_response", {"is_valid": bool, "data": Any})
+ResponseData = TypedDict("response_data", {"data": dict[str, str]})
 
 DATE_FIELD_FORMAT = "%Y-%m-%d"
 
@@ -18,33 +18,25 @@ DATE_FIELD_FORMAT = "%Y-%m-%d"
 class CheckDayHabitUseCase:
     """Check Habit Use Case Implementation"""
 
-    def _validate_input(self, data: RequestData) -> IsValidResponse:
+    def _validate_input(self, data: RequestData) -> Habit:
         try:
             habit = Habit.get_by_id(data["habit"])
-        except ObjectDoesNotExist:
-            return IsValidResponse(
-                is_valid=False,
-                data={"status": 404, "data": {"habit": "Habit does not exist"}},
-            )
+        except ObjectDoesNotExist as exc:
+            raise HabitDoesNotExistError() from exc
 
         if not habit.has_started(
             datetime.strptime(data["date"], DATE_FIELD_FORMAT).date()
         ):
-            return IsValidResponse(
-                is_valid=False,
-                data={"status": 400, "data": {"date": "This habit didn't start yet"}},
-            )
-        return IsValidResponse(is_valid=True, data=habit)
+            raise HabitDidNotStartedYet()
+
+        return habit
 
     def execute(self, data: RequestData) -> ResponseData:
         """Marks an habit in a given date as completed if it's completed
         and as not completed if it's already completed.
         """
-        is_input_valid = self._validate_input(data)
-        if not is_input_valid["is_valid"] and is_input_valid["data"]:
-            return is_input_valid["data"]
+        habit = self._validate_input(data)
 
-        habit: Habit = is_input_valid["data"]
         try:
             day = Day.get_by_date(data["date"])
         except ObjectDoesNotExist:
@@ -61,4 +53,4 @@ class CheckDayHabitUseCase:
             day_habit.save()
 
         serializer = DayHabitSerializer(day_habit)
-        return ResponseData(status=200, data=serializer.data)
+        return ResponseData(data=serializer.data)

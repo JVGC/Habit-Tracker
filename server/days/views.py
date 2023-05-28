@@ -4,6 +4,7 @@ from typing import TypedDict, Any
 from rest_framework import views
 from rest_framework.response import Response
 
+from habits.errors import HabitDoesNotExistError, HabitDidNotStartedYet
 from .use_cases import ListDaysUseCase, CheckDayHabitUseCase
 from .serializers import DaySerializer
 
@@ -40,10 +41,15 @@ class CheckDayHabit(views.APIView):
             response_data = is_input_valid["data"]
             return Response(status=response_data["status"], data=response_data["data"])
 
-        response_data = CheckDayHabitUseCase().execute(
-            {
-                "habit": request.data["habit"],
-                "date": request.data["date"],
-            }
-        )
-        return Response(status=response_data["status"], data=response_data["data"])
+        try:
+            response_data = CheckDayHabitUseCase().execute(
+                {
+                    "habit": request.data["habit"],
+                    "date": request.data["date"],
+                }
+            )
+            return Response(status=200, data=response_data["data"])
+        except HabitDidNotStartedYet as error:
+            return Response(status=400, data={"date": error.message})
+        except HabitDoesNotExistError as error:
+            return Response(status=404, data={"habit": error.message})

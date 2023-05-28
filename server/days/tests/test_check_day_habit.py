@@ -37,7 +37,7 @@ class CheckDayHabitTest(APITestCase):
         response = client.put("/days/check", data=request_body)
 
         self.assertEqual(response.status_code, 400)
-        self.assertIn("This habit didn't start yet", str(response.data["date"]))
+        self.assertIn("Habit didn't start yet", str(response.data["date"]))
 
     def test_check_day_habit_day_obj_does_not_exist(self):
         today = datetime.today().date()
