@@ -1,1 +1,1 @@
-from .use_case import UseCase, UseCaseError
+from .use_case import UseCase
