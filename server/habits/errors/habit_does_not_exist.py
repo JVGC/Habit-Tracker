@@ -1,4 +1,4 @@
-from habit_tracker.errors import UseCaseError
+from habit_tracker.interfaces import UseCaseError
 
 
 class HabitDoesNotExistError(UseCaseError):
