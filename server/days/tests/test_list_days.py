@@ -9,10 +9,12 @@ from habits.models import Habit
 
 
 class ListDaysTest(APITestCase):
+    def setUp(self) -> None:
+        self.client = APIClient()
+
     def test_list_days_no_habit_registered(self):
         Day(date=datetime.today().date()).save()
-        client = APIClient()
-        response = client.get("/days/")
+        response = self.client.get("/days/")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
@@ -20,8 +22,7 @@ class ListDaysTest(APITestCase):
         self.assertEqual(response.data[0]["total"], 0)
 
     def test_list_days_no_days(self):
-        client = APIClient()
-        response = client.get("/days/")
+        response = self.client.get("/days/")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 0)
@@ -35,8 +36,7 @@ class ListDaysTest(APITestCase):
         DayHabit(habit=habit, day=day, completed=True).save()
         DayHabit(habit=habit2, day=day, completed=True).save()
 
-        client = APIClient()
-        response = client.get("/days/")
+        response = self.client.get("/days/")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
@@ -51,8 +51,7 @@ class ListDaysTest(APITestCase):
         Habit(name="habit2", start_at=today).save()
         DayHabit(habit=habit, day=day, completed=True).save()
 
-        client = APIClient()
-        response = client.get("/days/")
+        response = self.client.get("/days/")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 1)
@@ -69,8 +68,7 @@ class ListDaysTest(APITestCase):
         Habit(name="habit2", start_at=tomorrow).save()
         DayHabit(habit=habit, day=day, completed=True).save()
 
-        client = APIClient()
-        response = client.get("/days/")
+        response = self.client.get("/days/")
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.data), 2)

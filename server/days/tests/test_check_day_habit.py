@@ -8,19 +8,20 @@ from days.models import Day, DayHabit
 
 
 class CheckDayHabitTest(APITestCase):
+    def setUp(self) -> None:
+        self.client = APIClient()
+
     def test_check_day_habit_does_not_exist(self):
-        client = APIClient()
         request_body = {"habit": "1", "date": datetime.today().date()}
-        response = client.put("/days/check", data=request_body)
+        response = self.client.put("/days/check", data=request_body)
 
         self.assertEqual(response.status_code, 404)
 
     def test_check_day_habit_date_format_is_invalid(self):
         habit = Habit.objects.create(name="habit1", start_at=datetime.today().date())
 
-        client = APIClient()
         request_body = {"habit": habit.pk, "date": datetime.today()}
-        response = client.put("/days/check", data=request_body)
+        response = self.client.put("/days/check", data=request_body)
 
         self.assertEqual(response.status_code, 400)
         self.assertIn("Date has wrong format", str(response.data["date"]))
@@ -29,12 +30,11 @@ class CheckDayHabitTest(APITestCase):
         today = datetime.today().date()
         habit = Habit.objects.create(name="habit1", start_at=today)
 
-        client = APIClient()
         request_body = {
             "habit": habit.pk,
             "date": datetime(today.year - 1, today.month, today.day).date(),
         }
-        response = client.put("/days/check", data=request_body)
+        response = self.client.put("/days/check", data=request_body)
 
         self.assertEqual(response.status_code, 400)
         self.assertIn("Habit didn't start yet", str(response.data["date"]))
@@ -43,12 +43,11 @@ class CheckDayHabitTest(APITestCase):
         today = datetime.today().date()
         habit = Habit.objects.create(name="habit1", start_at=today)
 
-        client = APIClient()
         request_body = {
             "habit": habit.pk,
             "date": today,
         }
-        response = client.put("/days/check", data=request_body)
+        response = self.client.put("/days/check", data=request_body)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(Day.get_by_date(date=today).date, today)
@@ -59,9 +58,8 @@ class CheckDayHabitTest(APITestCase):
         day = Day.objects.create(date=today)
         DayHabit(habit=habit, day=day, completed=True).save()
 
-        client = APIClient()
         request_body = {"habit": habit.pk, "date": today}
-        response = client.put("/days/check", data=request_body)
+        response = self.client.put("/days/check", data=request_body)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["completed"], False)
@@ -70,10 +68,9 @@ class CheckDayHabitTest(APITestCase):
         today = datetime.today().date()
         habit = Habit.objects.create(name="habit1", start_at=today)
 
-        client = APIClient()
         request_body = {"habit": habit.pk, "date": today}
-        response = client.put("/days/check", data=request_body)
+        response = self.client.put("/days/check", data=request_body)
 
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.data["completed"], True)
-        self.assertEqual(Day.get_by_date(date=today).date, today)
+        self.assertEqual(Day.get_by_date(date=str(today)).date, today)
