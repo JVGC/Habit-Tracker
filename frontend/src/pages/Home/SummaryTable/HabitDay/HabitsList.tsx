@@ -53,7 +53,7 @@ export function HabitsList({total, completed, date, onCheckHabit}: Props){
   }
 
   return (
-    <PopoverContent>
+    <PopoverContent side="left">
         <SelectedDay>{dayjs(date).format('dddd')}</SelectedDay>
         <SelectedDate>{dayjs(date).format('DD/MM')}</SelectedDate>
 
