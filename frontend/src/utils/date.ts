@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 
-export function generateDatesFromRange(): Date[] {
-  const firstDayOfTheYear = dayjs().startOf('year')
+export function generateDatesFromRange(initialDate = dayjs().startOf('year')): Date[] {
+  const firstDayOfTheYear = initialDate
 
   const today = new Date()
   const dates = []
