@@ -9,5 +9,4 @@ export function Home(){
             <SummaryTable />
         </Container>
     )
-    
-} 
+}
