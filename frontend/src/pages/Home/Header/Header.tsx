@@ -2,7 +2,7 @@ import * as Dialog from '@radix-ui/react-dialog'
 
 import logoImage from '@/assets/logo.svg'
 import { X } from 'phosphor-react'
-import { NewHabitForm } from './NewHabitForm'
+import { NewHabitForm } from './NewHabitForm/NewHabitForm'
 import {
   Container,
   DialogClose,
@@ -32,7 +32,9 @@ export function Header(){
           <DialogTitle>
             Add New Habit
           </DialogTitle>
+
           <NewHabitForm />
+
         </DialogContent>
       </Dialog.Portal>
       </Dialog.Root>
