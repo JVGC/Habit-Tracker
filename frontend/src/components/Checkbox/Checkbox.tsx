@@ -1,18 +1,19 @@
 import { Check } from "phosphor-react";
-import { CheckboxContainer, CheckboxText, CheckboxIndicatorContainer, CheckboxRoot } from "./styles";
-
-import {Indicator} from '@radix-ui/react-checkbox'
 import { useState } from "react";
+
+import { CheckboxContainer, CheckboxIndicatorContainer, CheckboxRoot, CheckboxText } from "./styles";
+
+import { Indicator } from '@radix-ui/react-checkbox';
 
 interface Props{
   text: string;
-  completed: boolean;
+  checked: boolean;
   onCheckChange: () => void
 }
 
-export function Checkbox({ text, completed, onCheckChange}: Props){
+export function Checkbox({ text, checked, onCheckChange}: Props){
 
-  const [isChecked, setIsChecked] = useState<boolean>(completed)
+  const [isChecked, setIsChecked] = useState<boolean>(checked)
 
   const changeCheckBox = () => {
     setIsChecked(!isChecked)
@@ -25,7 +26,6 @@ export function Checkbox({ text, completed, onCheckChange}: Props){
           <Indicator>
             <Check size={20} style={{color: 'white'}}/>
           </Indicator>
-
         </CheckboxIndicatorContainer>
         <CheckboxText>
           {text}
