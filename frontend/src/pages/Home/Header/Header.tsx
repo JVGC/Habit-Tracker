@@ -1,9 +1,15 @@
 import * as Dialog from '@radix-ui/react-dialog'
 
-import { Container, DialogTrigger, PlusIcon, DialogContent, DialogOverlay, DialogClose, DialogTitle } from './styles'
-import logoImage from '../../assets/logo.svg'
 import { X } from 'phosphor-react'
+import logoImage from '../../../assets/logo.svg'
 import { NewHabitForm } from './NewHabitForm'
+import {
+  Container,
+  DialogClose,
+  DialogContent, DialogOverlay,
+  DialogTitle,
+  DialogTrigger, PlusIcon
+} from './styles'
 
 export function Header(){
 

@@ -1,8 +1,8 @@
-import { Check } from "phosphor-react";
-import { Form, TitleLabel, SubmitButton, TitleInput,  } from "./styles";
-import { FormEvent, useState } from "react";
-import { HabitService } from "../../services/HabitService";
 import dayjs from "dayjs";
+import { Check } from "phosphor-react";
+import { FormEvent, useState } from "react";
+import { HabitService } from "../../../services/HabitService";
+import { Form, SubmitButton, TitleInput, TitleLabel, } from "./styles";
 
 export function NewHabitForm(){
 

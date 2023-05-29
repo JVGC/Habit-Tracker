@@ -1,10 +1,10 @@
-import { HabitDay } from "../HabitDay/HabitDay";
-import { WEEKDAYS, generateDatesFromRange } from "../../utils/date";
-import { Container, Week, WeekDayName, Heatmap, DayToFill } from "./styles";
-import { useEffect, useState } from "react";
-import { DayService } from "../../services/DayService";
 import dayjs from "dayjs";
-import { Day } from "../../interfaces/models";
+import { useEffect, useState } from "react";
+import { Day } from "../../../interfaces/models";
+import { DayService } from "../../../services/DayService";
+import { WEEKDAYS, generateDatesFromRange } from "../../../utils/date";
+import { HabitDay } from "./HabitDay/HabitDay";
+import { Container, DayToFill, Heatmap, Week, WeekDayName } from "./styles";
 
 const summaryDates = generateDatesFromRange()
 

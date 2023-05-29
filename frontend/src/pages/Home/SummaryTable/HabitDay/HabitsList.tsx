@@ -1,11 +1,11 @@
-import dayjs from "dayjs"
-import { useState, useEffect } from "react"
-import { HabitService } from "../../services/HabitService"
-import { Checkbox } from "../Checkbox/Checkbox";
-import { PopoverContent, PopoverArrow, SelectedDay, ProgressIndicator, SelectedDate, ProgressRoot } from "./styles";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+import { Checkbox } from "../../../../components/Checkbox/Checkbox";
+import { HabitService } from "../../../../services/HabitService";
+import { PopoverArrow, PopoverContent, ProgressIndicator, ProgressRoot, SelectedDate, SelectedDay } from "./styles";
 
-import { Habit } from "../../interfaces/models";
-import { DayService } from "../../services/DayService";
+import { Habit } from "../../../../interfaces/models";
+import { DayService } from "../../../../services/DayService";
 
 interface Props {
   date: Date;

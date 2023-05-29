@@ -1,7 +1,5 @@
-import { Container, GlobalStyle, Home } from "./styles/global"
-import { Header } from "./components/Header/Header"
-import { SummaryTable } from "./components/SummaryTable/SummaryTable"
-
+import { Container, GlobalStyle } from "./styles/global"
+import { Home } from "./pages/Home/Home"
 
 export function App() {
 
@@ -9,10 +7,7 @@ export function App() {
   <>
     <GlobalStyle />
     <Container>
-      <Home>
-        <Header />
-        <SummaryTable />
-      </Home>
+      <Home />
     </Container>
   </>
   )
