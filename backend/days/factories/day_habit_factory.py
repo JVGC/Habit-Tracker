@@ -15,14 +15,22 @@ class DayHabitFactory:
     def create_day_habits_check(habits: List[int], since):
         today = datetime.today()
         while since < today:
-            number_habits_to_be_checked = randint(2, len(habits))
+            number_habits_to_be_checked = randint(0, len(habits))
+            day = Day.objects.filter(date=since.date())
 
             temp = habits.copy()
             for _ in range(0, number_habits_to_be_checked):
+                if len(temp) == 0:
+                    break
                 habit_id = choice(temp)
+                habit: Habit = Habit.get_by_id(str(habit_id))
                 temp.remove(habit_id)
-                habit = Habit.get_by_id(str(habit_id))
-                day = Day.objects.filter(date=since.date())
+                while habit.start_at > day[0].date and len(temp) > 0:
+                    habit_id = choice(temp)
+                    habit = Habit.get_by_id(str(habit_id))
+                    temp.remove(habit_id)
+                if habit.start_at > day[0].date:
+                    continue
                 DayHabit(habit=habit, day=day[0], completed=True).save()
             since = since + timedelta(days=1)
 
