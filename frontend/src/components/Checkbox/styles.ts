@@ -18,12 +18,12 @@ export const CheckboxRoot = styled(Checkbox.Root)`
 
   &[data-state="checked"] {
     div{
-      background-color: #22C55E;
-      border: 2px solid #22C55E;
+      background-color: ${props => props.theme.green['500']};
+      border: 2px solid ${props => props.theme.green['500']};
     }
     span{
       text-decoration-line: line-through;
-      color: #A1A1AA;
+      color: ${props => props.theme.gray['400']};
     }
   }
 `
@@ -35,7 +35,7 @@ export const CheckboxIndicatorContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #27272A ;
+  border: 2px solid ${props => props.theme.gray['800']} ;
 
   cursor: pointer;
 

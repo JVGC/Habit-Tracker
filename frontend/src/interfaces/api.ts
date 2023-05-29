@@ -4,11 +4,10 @@ export interface CreateNewHabitRequest {
 }
 
 export interface ListHabitsRequest {
-  date?: string
+  date: string
 }
 
 export interface CheckHabitRequest {
   habit: string;
   date: string;
-
 }

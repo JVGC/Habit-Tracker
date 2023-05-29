@@ -6,33 +6,33 @@ export const Container = styled.div`
   display: flex;
 
   .progress-0 {
-    background-color: #18181B;
-    border: 2px solid #27272A;
+    background-color: ${props => props.theme.gray['900']};
+    border: 2px solid ${props => props.theme.gray['800']};
   }
 
   .progress-0-20 {
-    background-color: #4C1D95;
-    border: 2px solid #5B21B6;
+    background-color: ${props => props.theme.violet['900']};
+    border: 2px solid ${props => props.theme.violet['800']};
   }
 
   .progress-20-40 {
-    background-color: #5B21B6;
-    border: 2px solid #5B21B6;
+    background-color: ${props => props.theme.violet['800']};
+    border: 2px solid ${props => props.theme.violet['800']};
   }
 
   .progress-40-60 {
-    background-color: #6D28D9;
-    border: 2px solid #8B5CF6;
+    background-color: ${props => props.theme.violet['700']};
+    border: 2px solid ${props => props.theme.violet['500']};
   }
 
   .progress-60-80 {
-    background-color: #5B21B6;
-    border: 2px solid #8B5CF6;
+    background-color: ${props => props.theme.violet['800']};
+    border: 2px solid ${props => props.theme.violet['500']};
   }
 
   .progress-80-100 {
-    background-color: #8B5CF6;
-    border: 2px solid #A78BFA;
+    background-color: ${props => props.theme.violet['500']};
+    border: 2px solid ${props => props.theme.violet['400']};
   }
 
 `
@@ -44,7 +44,7 @@ export const Week = styled.div`
   grid-template-rows: repeat(7, minmax(0, 1fr));
 `
 export const WeekDayName = styled.div`
-  color: #A1A1AA;
+  color: ${props => props.theme.gray['400']};
   font-size: 1.25rem;
   font-weight: 700;
   height: 2.5rem;
@@ -66,8 +66,8 @@ export const DayToFill = styled.div`
   height: 2.5rem;
   width: 2.5rem;
 
-  background-color: #18181B;
-  border: 2px solid #27272A;
+  background-color: ${props => props.theme.gray['900']};
+  border: 2px solid ${props => props.theme.gray['800']};
   border-radius: 0.5rem;
 
   opacity: 0.4;
