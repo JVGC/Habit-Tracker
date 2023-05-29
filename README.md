@@ -1,14 +1,4 @@
-# Table of Contents
-
-- [Description](#description)
-  - [Setup](#setup)
-  - [Run](#run)
-    - [Backend](#backend)
-    - [Frontend](#frontend)
-  - [Seeding](#seeding)
-  - [Testing](#testing)
-
-# Description
+# Habit Tracker
 
 The idea of this project is to track your daily habits and show it in a heatmap format.
 
@@ -20,6 +10,15 @@ You can add new habits as you want to. But by default, it will only show startin
 
 Then you can check those habits that you have done in that day.
 ![](./screenshots/check_habit.gif)
+
+## Table of Contents
+
+- [Setup](#setup)
+- [Run](#run)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+- [Seeding](#seeding)
+- [Testing](#testing)
 
 ## Setup
 
