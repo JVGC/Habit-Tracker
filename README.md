@@ -23,17 +23,17 @@ Then you can check those habits that you have done in that day.
 
 ## Setup
 
-1. Install Docker
-2. Install Node
-3. Install Yarn
-4. Setup .env file base on the [env.example](./.env.example) file
-5. Setup .env frontend file bases on the [frontend/.env.example](./frontend/.env.example) file
+1. Install [Docker.](https://docs.docker.com/engine/install/)
+2. Install [Node.](https://nodejs.org/en/download)
+3. Install [Yarn.](https://classic.yarnpkg.com/lang/en/docs/install/#debian-stable)
+4. Setup .env file base on the [env.example](./.env.example) file.
+5. Setup .env frontend file based on the [frontend/.env.example](./frontend/.env.example) file.
 
 ## Run
 
 ### Backend
 
-The backend run as default on port 8000.
+The backend run as default on port **8000**.
 
 ```sh
     docker compose up
@@ -41,7 +41,7 @@ The backend run as default on port 8000.
 
 ### Frontend
 
-The frontend run as default on port 5173.
+The frontend run as default on port **5173**.
 
 ```sh
     cd frontend
@@ -61,7 +61,7 @@ In order to run the seeds:
     docker compose up
 ```
 
-2. Run the loaddata django command inside the container:
+2. Run the **loaddata** django command inside the container:
 
 ```sh
 docker exec habit-tracker-api-1 python3 manage.py loaddata ./seeds/habits.json
@@ -74,7 +74,7 @@ docker exec habit-tracker-api-1 python3 manage.py loaddata ./seeds/days.json
 
 Django will create a separated database only for tests and it is totally responsible for creating that and destroying it afterwards.
 
-You can run the database test by running:
+You can run the backend tests by running:
 
 ```sh
     docker exec habit-tracker-api-1 python3 manage.py test
