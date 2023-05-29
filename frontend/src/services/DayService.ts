@@ -1,11 +1,12 @@
 import { api } from "../api/axios";
 import { CheckHabitRequest } from "../interfaces/api";
+import { Day } from "../interfaces/models";
 
 export class DayService {
 
 
-  static async listDays(){
-    const response = await api.get('/days')
+  static async listDays():Promise<Day[]>{
+    const response = await api.get<Day[]>('/days')
     return response.data
   }
 

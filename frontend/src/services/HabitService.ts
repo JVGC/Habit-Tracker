@@ -14,7 +14,7 @@ export class HabitService {
   }
 
   static async listHabits({date}: ListHabitsRequest): Promise<Habit[]>{
-    const response = await api.get('/habits', {
+    const response = await api.get<Habit[]>('/habits', {
       params:{
         date
       }
