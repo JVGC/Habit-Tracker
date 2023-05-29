@@ -20,7 +20,7 @@ export const DialogTrigger = styled(Dialog.Trigger)`
   align-items: center;
   gap: 0.75rem;
 
-  border: 2px solid ${props => props.theme.violet['500']};
+  border: 2px solid ${props => props.theme.colors.violet['500']};
   background-color: ${props => props.theme.background};
   font-weight: 600;
   border-radius: 0.5rem;
@@ -38,7 +38,7 @@ export const DialogTrigger = styled(Dialog.Trigger)`
   }
 `
 export const PlusIcon = styled(Plus)`
-  color: ${props => props.theme.violet['500']};
+  color: ${props => props.theme.colors.violet['500']};
 `
 
 export const DialogOverlay = styled(Dialog.Overlay)`
@@ -54,7 +54,7 @@ export const DialogOverlay = styled(Dialog.Overlay)`
 export const DialogContent = styled(Dialog.Content)`
   position: absolute;
   padding: 2.5rem;
-  background-color: ${props => props.theme.gray['900']};
+  background-color: ${props => props.theme.colors.gray['900']};
   border-radius: 1rem;
   width: 100%;
   max-width: 28rem;
@@ -68,8 +68,8 @@ export const DialogClose = styled(Dialog.Close)`
   position: absolute;
   right: 1.5rem;
   top: 1.5rem;
-  color: ${props => props.theme.gray['400']};
-  background-color: ${props => props.theme.gray['900']};
+  color: ${props => props.theme.colors.gray['400']};
+  background-color: ${props => props.theme.colors.gray['900']};
   border: none;
   cursor: pointer;
 
@@ -105,12 +105,12 @@ export const TitleInput = styled.input`
   padding: 1rem;
   border-radius: 0.5rem;
   margin-top: 0.75rem;
-  background-color: ${props => props.theme.gray['800']};
+  background-color: ${props => props.theme.colors.gray['800']};
   border: none;
 
   color: white;
   &::placeholder{
-    color: ${props => props.theme.gray['400']};
+    color: ${props => props.theme.colors.gray['400']};
   }
 `
 
@@ -124,7 +124,7 @@ export const SubmitButton = styled.button`
   justify-content: center;
   font-weight: 600;
 
-  background-color: ${props => props.theme.green['600']};
+  background-color: ${props => props.theme.colors.green['600']};
   gap: 0.75rem;
   border: none;
 
@@ -138,7 +138,7 @@ export const SubmitButton = styled.button`
 
 
   &:hover{
-    background-color: ${props => props.theme.green['500']};
+    background-color: ${props => props.theme.colors.green['500']};
   }
 
 `

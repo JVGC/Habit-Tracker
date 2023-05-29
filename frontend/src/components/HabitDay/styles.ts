@@ -21,18 +21,18 @@ export const PopoverContent = styled(Popover.Content)`
   padding: 1.5rem;
 
   border-radius: 1rem;
-  background-color: ${props => props.theme.gray['900']};
+  background-color: ${props => props.theme.colors.gray['900']};
   display: flex;
   flex-direction: column;
 `
 
 export const PopoverArrow = styled(Popover.Arrow)`
-  fill: ${props => props.theme.gray['900']};
+  fill: ${props => props.theme.colors.gray['900']};
 `
 
 export const SelectedDay = styled.span`
   font-weight: 600;
-  color: ${props => props.theme.gray['400']};
+  color: ${props => props.theme.colors.gray['400']};
 
 `
 
@@ -46,7 +46,7 @@ export const SelectedDate = styled.span`
 export const ProgressRoot = styled(Progress.Root)`
   height: 0.75rem;
   border-radius: 0.75rem;
-  background-color: ${props => props.theme.gray['700']};
+  background-color: ${props => props.theme.colors.gray['700']};
   width: 100%;
   margin-top: 1rem;
 `
@@ -57,7 +57,7 @@ export const ProgressIndicator = styled(Progress.Indicator)<{
   height: 0.75rem;
   border-radius: 0.75rem;
 
-  background-color: ${props => props.theme.violet['600']};
+  background-color: ${props => props.theme.colors.violet['600']};
 
   width: ${props => props.completed}%;
 
