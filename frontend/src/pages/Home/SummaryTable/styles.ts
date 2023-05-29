@@ -7,6 +7,7 @@ export const Container = styled.div`
 
   align-items: center;
   justify-content: center;
+
   .progress-0 {
     background-color: ${props => props.theme.colors.gray['900']};
     border: 2px solid ${props => props.theme.colors.gray['800']};

@@ -16,9 +16,13 @@ export function SummaryTable(){
 
   useEffect(() => {
     async function listDays(){
-      const response = await DayService.listDays()
-      setDays(response)
-      setIsListDaysLoading(false)
+      try{
+        const response = await DayService.listDays()
+        setDays(response)
+        setIsListDaysLoading(false)
+      }catch(error){
+        console.log(error)
+      }
     }
     listDays()
   }, [])

@@ -11,7 +11,10 @@ export function NewHabitForm(){
   const createNewHabit = async (e: FormEvent) => {
     e.preventDefault()
     try{
-      await HabitService.createNewHabit({title, startAt: dayjs(new Date()).format('YYYY-MM-DD')})
+      await HabitService.createNewHabit({
+        title,
+        startAt: dayjs(new Date()).format('YYYY-MM-DD')
+      })
       setTitle('')
     }catch(err){
       console.log(err)
