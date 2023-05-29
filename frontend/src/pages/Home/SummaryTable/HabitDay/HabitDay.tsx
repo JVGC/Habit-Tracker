@@ -1,9 +1,9 @@
-import * as Popover from '@radix-ui/react-popover'
-
-import { PopoverTrigger } from "./styles";
-import clsx from 'clsx';
-import { HabitsList } from './HabitsList';
+import * as Popover from '@radix-ui/react-popover';
 import { useState } from 'react';
+
+import clsx from 'clsx';
+import { HabitsList } from './HabitList/HabitList';
+import { PopoverTrigger } from "./styles";
 
 interface Props {
   date: Date;
