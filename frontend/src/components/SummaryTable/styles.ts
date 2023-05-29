@@ -5,6 +5,8 @@ export const Container = styled.div`
   width: 100%;
   display: flex;
 
+  align-items: center;
+  justify-content: center;
   .progress-0 {
     background-color: ${props => props.theme.colors.gray['900']};
     border: 2px solid ${props => props.theme.colors.gray['800']};
