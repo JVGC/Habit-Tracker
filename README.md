@@ -10,7 +10,7 @@
 
 # Description
 
-The idea of this project is to track your daily habits and show it in the heatmap format.
+The idea of this project is to track your daily habits and show it in a heatmap format.
 
 ![](./screenshots/home.png)
 
@@ -18,7 +18,7 @@ You can add new habits as you want to. But by default, it will only show startin
 
 ![](./screenshots/new_habit.gif)
 
-Then you can check those habits that you have done in the specific day.
+Then you can check those habits that you have done in that day.
 ![](./screenshots/check_habit.gif)
 
 ## Setup
