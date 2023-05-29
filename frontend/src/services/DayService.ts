@@ -1,6 +1,6 @@
-import { api } from "../api/axios";
-import { CheckHabitRequest } from "../interfaces/api";
-import { Day } from "../interfaces/models";
+import { api } from "@/api/axios";
+import { CheckHabitRequest } from "@/interfaces/api";
+import { Day } from "@/interfaces/models";
 
 export class DayService {
 

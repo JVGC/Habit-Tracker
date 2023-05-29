@@ -1,16 +1,16 @@
+import { Checkbox } from "@/components/Checkbox/Checkbox";
+import { Habit } from "@/interfaces/models";
+import { DayService } from "@/services/DayService";
+import { HabitService } from "@/services/HabitService";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { Checkbox } from "../../../../../components/Checkbox/Checkbox";
-import { Habit } from "../../../../../interfaces/models";
-import { DayService } from "../../../../../services/DayService";
-import { HabitService } from "../../../../../services/HabitService";
 import {
-    PopoverArrow,
-    PopoverContent,
-    ProgressIndicator,
-    ProgressRoot,
-    SelectedDate,
-    SelectedDay
+  PopoverArrow,
+  PopoverContent,
+  ProgressIndicator,
+  ProgressRoot,
+  SelectedDate,
+  SelectedDay
 } from "./styles";
 
 

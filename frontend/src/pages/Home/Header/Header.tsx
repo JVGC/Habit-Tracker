@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 
+import logoImage from '@/assets/logo.svg'
 import { X } from 'phosphor-react'
-import logoImage from '../../../assets/logo.svg'
 import { NewHabitForm } from './NewHabitForm'
 import {
   Container,

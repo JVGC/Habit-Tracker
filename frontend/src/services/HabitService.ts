@@ -1,6 +1,6 @@
-import { api } from "../api/axios"
-import { CreateNewHabitRequest, ListHabitsRequest } from "../interfaces/api"
-import { Habit } from "../interfaces/models"
+import { api } from "@/api/axios"
+import { CreateNewHabitRequest, ListHabitsRequest } from "@/interfaces/api"
+import { Habit } from "@/interfaces/models"
 
 export class HabitService {
 

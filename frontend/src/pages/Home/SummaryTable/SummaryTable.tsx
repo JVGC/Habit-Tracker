@@ -1,8 +1,8 @@
+import { Day } from "@/interfaces/models";
+import { DayService } from "@/services/DayService";
+import { WEEKDAYS, generateDatesFromRange } from "@/utils/date";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { Day } from "../../../interfaces/models";
-import { DayService } from "../../../services/DayService";
-import { WEEKDAYS, generateDatesFromRange } from "../../../utils/date";
 import { HabitDay } from "./HabitDay/HabitDay";
 import { Container, DayToFill, Heatmap, Week, WeekDayName } from "./styles";
 
