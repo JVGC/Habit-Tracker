@@ -1,3 +1,13 @@
+# Table of Contents
+
+- [Description](#description)
+  - [Setup](#setup)
+  - [Run](#run)
+    - [Backend](#backend)
+    - [Frontend](#frontend)
+  - [Seeding](#seeding)
+  - [Testing](#testing)
+
 # Description
 
 The idea of this project is to track your daily habits and show it in the heatmap format.
@@ -58,4 +68,14 @@ docker exec habit-tracker-api-1 python3 manage.py loaddata ./seeds/habits.json
 
 docker exec habit-tracker-api-1 python3 manage.py loaddata ./seeds/days.json
 
+```
+
+## Testing
+
+Django will create a separated database only for tests and it is totally responsible for creating that and destroying it afterwards.
+
+You can run the database test by running:
+
+```sh
+    docker exec habit-tracker-api-1 python3 manage.py test
 ```
