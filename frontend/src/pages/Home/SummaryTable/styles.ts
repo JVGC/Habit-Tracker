@@ -29,7 +29,7 @@ export const Container = styled.div`
   }
 
   .progress-60-80 {
-    background-color: ${props => props.theme.colors.violet['800']};
+    background-color: ${props => props.theme.colors.violet['600']};
     border: 2px solid ${props => props.theme.colors.violet['500']};
   }
 
