@@ -16,33 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-
-# pylint: disable=imported-auth-user
-from django.contrib.auth.models import User
-
-from rest_framework import routers, serializers, viewsets
-
-
-# Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    """User Serializer model"""
-
-    class Meta:
-        model = User
-        fields = ["url", "username", "email", "is_staff"]
-
-
-# ViewSets define the view behavior.
-# pylint: disable=too-many-ancestors
-class UserViewSet(viewsets.ModelViewSet):
-    """User View Set"""
-
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
+from rest_framework import routers
 
 router = routers.DefaultRouter()
-router.register(r"users", UserViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
