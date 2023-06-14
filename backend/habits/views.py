@@ -20,6 +20,10 @@ class AddNewHabit(generics.CreateAPIView):
 class ListHabits(views.APIView):
     """List Habits API View"""
 
+    def __init__(self):
+        self.list_date_habits_use_case = ListDateHabitsUseCase()
+        super().__init__()
+
     def _validate(self, input_data) -> None:
         """Validate Request params and body.
         Raises Exception if input is not valid
@@ -31,5 +35,5 @@ class ListHabits(views.APIView):
         """GET Request for List Habits API View"""
         self._validate(request.query_params)
 
-        habits = ListDateHabitsUseCase.execute(request.query_params["date"])
+        habits = self.list_date_habits_use_case(request.query_params["date"])
         return Response(data=habits)

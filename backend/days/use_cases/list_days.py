@@ -19,13 +19,12 @@ class ListDaysUseCase:
             .order_by("date")
         )
 
-    @staticmethod
-    def execute() -> ReturnDict:
+    def __call__(self) -> ReturnDict:
         """Return all Days ordered by date ascendent,
         and for each day, returns the number of completed habits
         and the total amount of habits to be completed.
         """
-        days = ListDaysUseCase._get_days_with_completed_habits_count()
+        days = self._get_days_with_completed_habits_count()
 
         day_serializer = DaySerializer(days, many=True)
         for day in day_serializer.data:

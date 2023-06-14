@@ -29,12 +29,11 @@ class CheckDayHabitUseCase:
 
         return habit
 
-    @staticmethod
-    def execute(habit_id: str = "", date: str = "") -> ReturnDict:
+    def __call__(self, habit_id: str = "", date: str = "") -> ReturnDict:
         """Marks an habit in a given date as completed if it's not completed
         and as not completed if it's already completed.
         """
-        habit = CheckDayHabitUseCase.get_and_validate_habit(habit_id, date)
+        habit = self.get_and_validate_habit(habit_id, date)
 
         try:
             day = Day.get_by_date(date)

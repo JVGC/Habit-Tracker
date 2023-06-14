@@ -10,8 +10,7 @@ from habits.serializers import HabitSerializer
 class ListDateHabitsUseCase:
     """ListDateHabits Use Case Implementation"""
 
-    @staticmethod
-    def execute(date: str = "") -> ReturnDict:
+    def __call__(self, date: str = "") -> ReturnDict:
         """List all the habits for a given date"""
         habits = Habit.get_habits_by_date(date=date)
         habits = HabitSerializer(habits, many=True).data

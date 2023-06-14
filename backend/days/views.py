@@ -11,14 +11,22 @@ from .serializers import DaySerializer
 class ListDays(views.APIView):
     """List Days View"""
 
+    def __init__(self):
+        self.list_days_use_case = ListDaysUseCase()
+        super().__init__()
+
     def get(self, _) -> Response:
         """GET Request for List Days View"""
-        response_data = ListDaysUseCase.execute()
+        response_data = self.list_days_use_case()
         return Response(status=200, data=response_data)
 
 
 class CheckDayHabit(views.APIView):
     """Check Habit View"""
+
+    def __init__(self):
+        self.check_day_habit_use_case = CheckDayHabitUseCase()
+        super().__init__()
 
     def _validate(self, date=None) -> None:
         """Validate Request params and body.
@@ -31,7 +39,7 @@ class CheckDayHabit(views.APIView):
         """PUT Request for Check Habit View"""
         self._validate(request.data.get("date"))
         try:
-            response_data = CheckDayHabitUseCase.execute(
+            response_data = self.check_day_habit_use_case(
                 request.data["habit"], request.data["date"]
             )
             return Response(status=200, data=response_data)
