@@ -16,6 +16,10 @@ class ListDateHabitsUseCase:
         habits = HabitSerializer(habits, many=True).data
         try:
             day = Day.objects.get(date=date)
+        except ObjectDoesNotExist:
+            for habit in habits:
+                habit["completed"] = False
+        else:
             day_habits = DayHabit.objects.filter(day__id=day.pk)
             for habit in habits:
                 day_habit = day_habits.filter(habit__id=habit["id"])
@@ -23,7 +27,5 @@ class ListDateHabitsUseCase:
                     habit["completed"] = False
                 else:
                     habit["completed"] = day_habit[0].completed
-        except ObjectDoesNotExist:
-            for habit in habits:
-                habit["completed"] = False
+
         return habits
