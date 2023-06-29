@@ -4,7 +4,7 @@ version = "1.0.0"
 description = ""
 authors = ["João Victor Garcia Coelho"]
 readme = "README.md"
-packages = [{include = "habit-tracker", lib="backend"}]
+packages = [{include = "backend"}]
 
 [tool.poetry.dependencies]
 python = "^3.10"
